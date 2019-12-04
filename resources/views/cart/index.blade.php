@@ -14,4 +14,12 @@
         @endforeach
     </div>
     <a href="/">Index</a>
+
+    <form method="POST" action="/mail">
+        {{ csrf_field() }}
+        <input type="text" name="name" placeholder="Name">
+        <textarea name="contact_details" }>Contact Details</textarea>
+        <textarea name="comments" }>Comments</textarea>
+        <button type="submit">Checkout</button>
+    </form>
 @endsection
