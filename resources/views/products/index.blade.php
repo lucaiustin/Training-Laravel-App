@@ -8,10 +8,16 @@
                 <p>{{ $product->title }}</p>
                 <p>{{ $product->description }}</p>
                 <p>{{ $product->price }}</p>
-                <a href="/cart/add/{{$product->id}}">Add</a>
             </div>
+            <form method="POST" action="/products/{{  $product->id }}">
+                @method('DELETE')
+                @csrf
+
+                <button type="submit">Delete Product</button>
+            </form>
             <hr>
         @endforeach
+        <a href="/products/create">Add</a>
         <a href="/cart">Cart</a>
     </div>
 @endsection
