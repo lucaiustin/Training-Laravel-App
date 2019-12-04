@@ -8,10 +8,10 @@
                 <p>{{ $product->title }}</p>
                 <p>{{ $product->description }}</p>
                 <p>{{ $product->price }}</p>
-                <a href="/cart/add/{{$product->id}}">Add</a>
+                <a href="/cart/remove/{{$product->id}}">Remove</a>
             </div>
             <hr>
         @endforeach
-        <a href="/cart">Cart</a>
     </div>
+    <a href="/">Index</a>
 @endsection

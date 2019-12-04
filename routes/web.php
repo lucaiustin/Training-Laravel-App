@@ -15,13 +15,16 @@ use App\Product;
 
 
 Route::get('/', function () {
-    session(['products_ids' => [2]]);
     $sessionProductsIds = session('products_ids');
 
     $products = Product::whereNotIn('id', $sessionProductsIds)->get();
 
     return view('index', ['products' => $products]);
 });
+
+Route::get('/cart', 'CartController@index');
+Route::get('/cart/add/{id}', 'CartController@add');
+Route::get('/cart/remove/{id}', 'CartController@remove');
 
 Auth::routes();
 
