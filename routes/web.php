@@ -32,6 +32,7 @@ Route::get('/cart/add/{id}', 'CartController@add');
 Route::get('/cart/remove/{id}', 'CartController@remove');
 Route::post('/mail', 'CartMailController@sendMail');
 Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('/products', 'ProductController');
 
 Auth::routes();
 
