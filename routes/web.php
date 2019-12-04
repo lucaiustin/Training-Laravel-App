@@ -11,8 +11,16 @@
 |
 */
 
+use App\Product;
+
+
 Route::get('/', function () {
-    return view('welcome');
+    session(['products_ids' => [2]]);
+    $sessionProductsIds = session('products_ids');
+
+    $products = Product::whereNotIn('id', $sessionProductsIds)->get();
+
+    return view('index', ['products' => $products]);
 });
 
 Auth::routes();
