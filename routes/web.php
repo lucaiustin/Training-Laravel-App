@@ -15,7 +15,6 @@ use App\Product;
 use Illuminate\Http\Request;
 
 Route::get('/', function (Request $request) {
-
     if (!$request->session()->has('products_ids')) {
         $request->session()->put('products_ids', []);
     }

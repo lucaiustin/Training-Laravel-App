@@ -11,6 +11,6 @@
         </div>
 
         <hr>
-        <a href="/cart">Cart</a>
+        <a href="/cart">{{__('Cart')}}</a>
     </div>
 @endsection

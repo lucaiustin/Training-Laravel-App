@@ -2,16 +2,16 @@
 
 @section('content')
     <div class="container">
-        <form method="POST" action="/products">
+        <form method="POST" action="/products" enctype="multipart/form-data">
 
             {{ csrf_field()  }}
             <ul>
-                <li><input type="text" name="title" placeholder="Title"></li>
-                <li><input type="text" name="price" placeholder="Price"></li>
-                <li><textarea name="description" placeholder="Description"></textarea></li>
-                <li><input type="text" name="image_name" placeholder="Image Name"></li>
+                <li><input type="text" name="title" placeholder="{{__('Title')}}" value="{{ old('title') }}" required></li>
+                <li><input type="text" name="price" placeholder="{{__('Price')}}" value="{{ old('price') }}" required></li>
+                <li><textarea name="description" placeholder="{{__('Description')}}" required>{{ old('description') }}</textarea></li>
+                <input type="file" name="image" />
             </ul>
-            <button type="submit">Create</button>
+            <button type="submit">{{__('Create')}}</button>
         </form>
 
 

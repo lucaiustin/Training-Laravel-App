@@ -4,7 +4,8 @@
     <div class="container">
         @foreach ($products as $product)
             <div>
-                <p>This is product {{ $product->id }}</p>
+                <p>{{__('This is product')}} {{$product->id }}</p>
+                <img src="{{url('storage/', $product->image_name)}}">
                 <p>{{ $product->title }}</p>
                 <p>{{ $product->description }}</p>
                 <p>{{ $product->price }}</p>
@@ -12,6 +13,6 @@
             </div>
             <hr>
         @endforeach
-        <a href="/cart">Cart</a>
+        <a href="/cart">{{__('Cart')}}</a>
     </div>
 @endsection

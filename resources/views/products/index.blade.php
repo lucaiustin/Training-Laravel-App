@@ -5,6 +5,7 @@
         @foreach ($products as $product)
             <div>
                 <p>This is product {{ $product->id }}</p>
+                <img src="{{url('storage/', $product->image_name)}}">
                 <p>{{ $product->title }}</p>
                 <p>{{ $product->description }}</p>
                 <p>{{ $product->price }}</p>
@@ -13,11 +14,17 @@
                 @method('DELETE')
                 @csrf
 
-                <button type="submit">Delete Product</button>
+                <button type="submit">{{__('Delete Product')}}</button>
             </form>
             <hr>
         @endforeach
-        <a href="/products/create">Add</a>
-        <a href="/cart">Cart</a>
+
+        <a href="/products/create">{{__('Add')}}</a>
+        <a href="/cart">{{__('Cart')}}</a>
+
+        <form id="frm-logout" action="{{ route('logout') }}" method="POST">
+            {{ csrf_field() }}
+            <button type="submit">{{__('Logout')}}</button>
+        </form>
     </div>
 @endsection
