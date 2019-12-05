@@ -3,13 +3,8 @@
 @section('content')
     <div class="container">
         @foreach ($products as $product)
-            <div>
-                <p>This is product {{ $product->id }}</p>
-                <img src="{{ url('storage/', $product->image_name) }}">
-                <p>{{ $product->title }}</p>
-                <p>{{ $product->description }}</p>
-                <p>{{ $product->price }}</p>
-            </div>
+            @include('layouts.product')
+
             <form method="POST" action="/products/{{ $product->id }}">
                 @method('DELETE')
                 @csrf

@@ -5,6 +5,7 @@
         <form method="POST" action="/products/{{  $product->id }}" enctype="multipart/form-data">
             {{ method_field('PATCH') }}
             {{ csrf_field() }}
+
             <p><input type="text" class="input" name="title" placeholder="{{ __('Title') }}" value="{{  $product->title }}" required></p>
             <p><input type="text" class="input" name="price" placeholder="{{ __('Price') }}" value="{{  $product->price }}" required></p>
             <p><textarea name="description" class="textarea" required>{{ $product->description  }}</textarea></p>
