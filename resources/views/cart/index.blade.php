@@ -18,10 +18,10 @@
 
     <form method="POST" action="/mail">
         {{ csrf_field() }}
-        <input type="text" name="name" placeholder="{{__('Name')}}" value="{{ old('name') }}" required>
-        <textarea name="contact_details" } value="{{ old('contact_details') }}" required>{{__('Contact Details')}}</textarea>
-        <textarea name="comments" }  value="{{ old('comments') }}" required>{{__('Comments')}}</textarea>
-        <button type="submit">{{__('Checkout')}}</button>
+        <input type="text" name="name" placeholder="{{ __('Name') }}" value="{{ old('name') }}" required>
+        <textarea name="contact_details" } value="{{ old('contact_details') }}" required>{{ __('Contact Details') }}</textarea>
+        <textarea name="comments" }  value="{{ old('comments') }}" required>{{ __('Comments') }}</textarea>
+        <button type="submit">{{ __('Checkout') }}</button>
     </form>
 
     @if ($errors->any())

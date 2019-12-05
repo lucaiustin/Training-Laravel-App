@@ -7,10 +7,10 @@
             <p>{{ $product->title }}</p>
             <p>{{ $product->description }}</p>
             <p>{{ $product->price }}</p>
-            <a href="/product/{{$product->id}}/edit">Edit</a>
+            <a href="/product/{{ $product->id }}/edit">Edit</a>
         </div>
 
         <hr>
-        <a href="/cart">{{__('Cart')}}</a>
+        <a href="/cart">{{ __('Cart') }}</a>
     </div>
 @endsection
