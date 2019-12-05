@@ -16,7 +16,7 @@
     </div>
     <a href="/">{{__('Index')}}</a>
 
-    <form method="POST" action="/mail">
+    <form method="POST" action="/order">
         {{ csrf_field() }}
         <input type="text" name="name" placeholder="{{ __('Name') }}" value="{{ old('name') }}" required>
         <textarea name="contact_details" } value="{{ old('contact_details') }}" required>{{ __('Contact Details') }}</textarea>

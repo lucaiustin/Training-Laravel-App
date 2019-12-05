@@ -13,10 +13,10 @@ class CreateProductOrderTable extends Migration
      */
     public function up()
     {
-        Schema::create('products_orders', function (Blueprint $table) {
+        Schema::create('order_product', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('products_id')->unsigned();
-            $table->integer('orders_id')->unsigned();
+            $table->integer('product_id')->unsigned();
+            $table->integer('order_id')->unsigned();
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateProductOrderTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('products_orders');
+        Schema::dropIfExists('order_product');
     }
 }
