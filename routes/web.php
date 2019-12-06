@@ -15,9 +15,11 @@ use Illuminate\Http\Request;
 
 Route::get('/cart/{id}', 'ShopController@removeFromCart');
 Route::get('/cart', 'ShopController@cart');
-Route::get('/', 'ShopController@index');
+Route::get('/login', 'AuthController@login');
+Route::post('/login', 'AuthController@login')->name('login');
+Route::post('/logout', 'AuthController@logout')->name('logout')->middleware('auth');
+Route::get('/', 'ShopController@index')->middleware('auth');
 Route::get('/{id}', 'ShopController@addToCart');
-
 
 Route::post('/mail', 'CartMailController@sendMail');
 Route::get('/home', 'HomeController@index')->name('home');
