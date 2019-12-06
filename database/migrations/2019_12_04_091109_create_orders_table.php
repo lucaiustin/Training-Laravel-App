@@ -18,8 +18,6 @@ class CreateOrdersTable extends Migration
             $table->string('name', 100);
             $table->text('contact_details');
             $table->text('comments');
-            $table->integer('users_id')->unsigned();
-            $table->timestamps();
         });
     }
 

@@ -11,27 +11,17 @@
 |
 */
 
-use App\Product;
 use Illuminate\Http\Request;
 
-Route::get('/', function (Request $request) {
-    if (!$request->session()->has('products_ids')) {
-        $request->session()->put('products_ids', []);
-    }
+Route::get('/cart/{id}', 'ShopController@removeFromCart');
+Route::get('/cart', 'ShopController@cart');
+Route::get('/', 'ShopController@index');
+Route::get('/{id}', 'ShopController@addToCart');
 
-    $sessionProductsIds = session('products_ids');
 
-    $products = Product::whereNotIn('id', $sessionProductsIds)->get();
-
-    return view('index', ['products' => $products]);
-});
-
-Route::get('/cart', 'CartController@index');
-Route::get('/cart/add/{id}', 'CartController@add');
-Route::get('/cart/remove/{id}', 'CartController@remove');
 Route::post('/mail', 'CartMailController@sendMail');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/products', 'ProductController');
 Route::resource('/orders', 'OrderController');
-Auth::routes();
+
 

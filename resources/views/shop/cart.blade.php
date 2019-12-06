@@ -5,7 +5,7 @@
         @foreach ($products as $product)
             <div>
                 @include('layouts.product')
-                <a href="/cart/remove/{{$product->id}}">{{__('Remove')}}</a>
+                <a href="/cart/{{$product->id}}">{{__('Remove')}}</a>
             </div>
             <hr>
         @endforeach

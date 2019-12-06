@@ -19,8 +19,6 @@ class CreateProductTable extends Migration
             $table->text('description');
             $table->decimal('price', 8, 2);
             $table->string('image_name', 100);
-            $table->integer('users_id')->unsigned();
-            $table->timestamps();
         });
     }
 

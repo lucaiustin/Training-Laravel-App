@@ -6,7 +6,7 @@
             <div>
                 @include('layouts.product')
 
-                <a href="/cart/add/{{ $product->id }}">Add</a>
+                <a href="/{{ $product->id }}">Add</a>
             </div>
             <hr>
         @endforeach
