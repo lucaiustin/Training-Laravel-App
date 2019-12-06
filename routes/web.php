@@ -18,12 +18,14 @@ Route::get('/cart', 'ShopController@cart');
 Route::get('/login', 'AuthController@login');
 Route::post('/login', 'AuthController@login')->name('login');
 Route::post('/logout', 'AuthController@logout')->name('logout')->middleware('auth');
+Route::get('/products', 'ProductController@index');
+Route::get('/products/{id}', 'ProductController@edit');
+
 Route::get('/', 'ShopController@index')->middleware('auth');
 Route::get('/{id}', 'ShopController@addToCart');
 
 Route::post('/mail', 'CartMailController@sendMail');
 Route::get('/home', 'HomeController@index')->name('home');
-Route::resource('/products', 'ProductController');
 Route::resource('/orders', 'OrderController');
 
 
