@@ -54,10 +54,7 @@ class OrderController extends Controller
         ]);
 
         $order = Order::create($data);
-
-        foreach ($products as $product) {
-            $order->products()->attach($product);
-        }
+        $order->products()->attach($products);
 
         Mail::to(config('constants.send_mail_to'))->send(new CartMail($order));
 

@@ -12,8 +12,6 @@
             <p><button type="submit">{{ __('Update Order') }}</button></p>
         </form>
 
-        @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-        @endforeach
+        @include('layouts.errors')
     </div>
 @endsection
