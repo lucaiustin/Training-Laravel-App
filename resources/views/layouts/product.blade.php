@@ -1,6 +1,6 @@
 <div>
     <p>This is product {{ $product->id }}</p>
-    <img src="{{ url('storage/', $product->image_name) }}">
+    <img src="{{ url('storage/images/', $product->image_name) }}">
     <p>{{ $product->title }}</p>
     <p>{{ $product->description }}</p>
     <p>{{ $product->price }}</p>

@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-use App\Product;
-use App\Order;
+use App\Models\Product;
+use App\Models\Order;
 use App\Mail\CartMail;
 
 class OrderController extends Controller
@@ -52,7 +52,7 @@ class OrderController extends Controller
             'contact_details' => 'required',
             'comments' => 'required',
         ]);
-        $data['users_id'] = Auth::id();
+
         $order = Order::create($data);
 
         foreach ($products as $product) {

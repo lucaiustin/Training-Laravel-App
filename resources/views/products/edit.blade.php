@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <form method="POST" action="/products/{{  $product->id }}" enctype="multipart/form-data">
+        <form method="POST" action="/product/{{  $product->id }}" enctype="multipart/form-data">
             {{ method_field('PATCH') }}
             {{ csrf_field() }}
 

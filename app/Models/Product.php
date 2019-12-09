@@ -1,8 +1,6 @@
 <?php
 
-namespace App;
-
-use Illuminate\Database\Eloquent\Model;
+namespace App\Models;
 
 class Product extends Model
 {
@@ -12,7 +10,7 @@ class Product extends Model
 
     public function orders()
     {
-        return $this->belongsToMany('App\Order');
+        return $this->belongsToMany('App\Models\Order');
     }
 
     public function user()

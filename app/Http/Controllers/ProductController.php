@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Product;
+use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -45,15 +45,13 @@ class ProductController extends Controller
         $data = request()->validate([
             'title' => ['required', 'min:3'],
             'description' => 'required',
-            'price' => ['required', 'numeric'],
-            'image' => ['required', 'image']
+            'price' => ['required', 'numeric']
         ]);
-        $data['users_id'] = Auth::id();
         $data['image_name'] = $request->file('image')->getClientOriginalName();
 
         Product::create($data);
 
-        $request->file('image')->storeAs('public', $request->file('image')->getClientOriginalName());
+        $request->file('image')->storeAs('images', $request->file('image')->getClientOriginalName());
 
         return redirect('/products');
     }
@@ -76,10 +74,10 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit($id)
     {
-        $this->authorize('edit', $product);
-
+        //$this->authorize('edit', $product);
+        $product = Product::find($id);
         return view('products.edit', ['product' => $product]);
     }
 
@@ -91,9 +89,10 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $id)
     {
-        $this->authorize('update', $product);
+        //$this->authorize('update', $product);
+        $product = Product::find($id);
 
         $data = $request->validate([
             'title' => ['required', 'min:3'],
@@ -106,7 +105,7 @@ class ProductController extends Controller
 
         $product->update($data);
 
-        $request->file('image')->storeAs('public', $request->file('image')->getClientOriginalName());
+        $request->file('image')->storeAs('images', $request->file('image')->getClientOriginalName());
 
         return redirect('/products');
     }
@@ -117,11 +116,12 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy($id)
     {
-        $this->authorize('delete', $product);
+        //$this->authorize('delete', $product);
+        $product = Product::find($id);
 
-        unlink(storage_path('app/public/'.$product->image_name));
+        unlink(storage_path('app/public/images/'.$product->image_name));
         $product->delete();
 
         return redirect('/products');

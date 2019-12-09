@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <form method="POST" action="/products" enctype="multipart/form-data">
+        <form method="POST" action="/product" enctype="multipart/form-data">
             {{ csrf_field()  }}
 
             <ul>
