@@ -14,10 +14,12 @@
 
     <form method="POST" action="/orders">
         {{ csrf_field() }}
-        <input type="text" name="name" placeholder="{{ __('Name') }}" value="{{ old('name') }}" required>
-        <textarea name="contact_details" } value="{{ old('contact_details') }}" required>{{ __('Contact Details') }}</textarea>
-        <textarea name="comments" }  value="{{ old('comments') }}" required>{{ __('Comments') }}</textarea>
-        <button type="submit">{{ __('Checkout') }}</button>
+        <ul>
+            <li><input type="text" name="name" placeholder="{{ __('Name') }}" value="{{ old('name') }}" required></li>
+            <li><textarea name="contact_details" } placeholder="{{__('Contact Details')}}" required>{{ old('contact_details') }}</textarea></li>
+            <li><textarea name="comments" } placeholder="{{__('Comments')}}" required>{{ old('comments') }}</textarea></li>
+            <li><button type="submit">{{ __('Checkout') }}</button></li>
+        </ul>
     </form>
 
     @if ($errors->any())

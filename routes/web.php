@@ -31,7 +31,7 @@ Route::get('/orders', 'OrderController@index');
 Route::post('/orders', 'OrderController@store');
 Route::get('/order/{id}', 'OrderController@show');
 
-Route::get('/', 'ShopController@index')->middleware('auth');
+Route::get('/', 'ShopController@index');
 Route::get('/{id}', 'ShopController@addToCart');
 
 

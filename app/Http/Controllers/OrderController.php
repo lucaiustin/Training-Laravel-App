@@ -72,7 +72,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $order = Order::find($id);
+        $order = Order::findOrFail($id);
         return view('orders.show', ['order' => $order]);
     }
 
@@ -84,45 +84,6 @@ class OrderController extends Controller
      */
     public function edit(Order $order)
     {
-        $this->authorize('edit', $order);
-
         return view('orders.edit', ['order' => $order]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Order $order)
-    {
-        $this->authorize('update', $order);
-
-        $data = $request->validate([
-            'name' => ['required', 'min:3'],
-            'contact_details' => 'required',
-            'comments' => 'required',
-        ]);
-
-        $order->update($data);
-
-        return redirect('/orders');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Order $order)
-    {
-        $this->authorize('delete', $order);
-
-        $order->delete();
-
-        return redirect('/orders');
     }
 }

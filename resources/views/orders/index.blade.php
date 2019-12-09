@@ -4,14 +4,7 @@
     <div class="container">
         @foreach ($orders as $order)
             @include('layouts.order')
-
-            <a href="/orders/{{ $order->id }}">View</a>
-            <a  href="/orders/{{ $order->id }}/edit">Edit</a>
-            <form method="POST" action="/orders/{{ $order->id }}">
-                @method('DELETE')
-                @csrf
-                <button type="submit">{{ __('Delete Order') }}</button>
-            </form>
+            <a href="/order/{{ $order->id }}">View</a>
             <hr>
         @endforeach
     </div>

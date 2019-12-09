@@ -11,11 +11,11 @@
 
                 <button type="submit">{{ __('Delete Product') }}</button>
             </form>
-            <a href="/products/{{ $product->id }}/edit">Edit</a>
+            <a href="/product/{{ $product->id }}">Edit</a>
             <hr>
         @endforeach
 
-        <a href="/products/create">{{ __('Add') }}</a>
+        <a href="/product">{{ __('Add') }}</a>
         <a href="/cart">{{ __('Cart') }}</a>
 
         <form id="frm-logout" action="{{ route('logout') }}" method="POST">

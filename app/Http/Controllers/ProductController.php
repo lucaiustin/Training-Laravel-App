@@ -45,13 +45,13 @@ class ProductController extends Controller
         $data = request()->validate([
             'title' => ['required', 'min:3'],
             'description' => 'required',
-            'price' => ['required', 'numeric']
+            'price' => ['required', 'numeric'],
+            'image_name' => ['required']
         ]);
-        $data['image_name'] = $request->file('image')->getClientOriginalName();
 
         Product::create($data);
 
-        $request->file('image')->storeAs('images', $request->file('image')->getClientOriginalName());
+        $request->file('image')->storeAs('images', $data['image_name']);
 
         return redirect('/products');
     }
@@ -64,7 +64,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $product = Product::find($id);
+        $product = Product::findOrFail($id);
         return view('products.show', ['product' => $product]);
     }
 
@@ -76,8 +76,7 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //$this->authorize('edit', $product);
-        $product = Product::find($id);
+        $product = Product::findOrFail($id);
         return view('products.edit', ['product' => $product]);
     }
 
@@ -91,21 +90,20 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //$this->authorize('update', $product);
-        $product = Product::find($id);
+        $product = Product::findOrFail($id);
 
         $data = $request->validate([
             'title' => ['required', 'min:3'],
             'description' => 'required',
             'price' => ['required', 'numeric'],
-            'image' => ['required', 'image']
+            'image' => ['required', 'image'],
+            'image_name' => ['required']
         ]);
 
-        $data['image_name'] = $request->file('image')->getClientOriginalName();
+        unlink(storage_path('app/public/images/'.$product->image_name));
+        $request->file('image')->storeAs('images', $data['image_name']);
 
         $product->update($data);
-
-        $request->file('image')->storeAs('images', $request->file('image')->getClientOriginalName());
 
         return redirect('/products');
     }
@@ -118,8 +116,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //$this->authorize('delete', $product);
-        $product = Product::find($id);
+        $product = Product::findOrFail($id);
 
         unlink(storage_path('app/public/images/'.$product->image_name));
         $product->delete();
