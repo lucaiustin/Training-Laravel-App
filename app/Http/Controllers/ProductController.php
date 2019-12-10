@@ -46,12 +46,14 @@ class ProductController extends Controller
             'title' => ['required', 'min:3'],
             'description' => 'required',
             'price' => ['required', 'numeric'],
-            'image_name' => ['required']
+            'image' => ['required', 'image']
         ]);
 
-        Product::create($data);
+        $image_path = $request->file('image')->store('images');
+        $image_name = basename($image_path);
 
-        $request->file('image')->storeAs('images', $data['image_name']);
+        $data['image_name'] = $image_name;
+        Product::create($data);
 
         return redirect('/products');
     }
@@ -96,12 +98,15 @@ class ProductController extends Controller
             'title' => ['required', 'min:3'],
             'description' => 'required',
             'price' => ['required', 'numeric'],
-            'image' => ['required', 'image'],
-            'image_name' => ['required']
+            'image' => ['required', 'image']
         ]);
 
         unlink(storage_path('app/public/images/'.$product->image_name));
-        $request->file('image')->storeAs('images', $data['image_name']);
+
+        $image_path = $request->file('image')->store('images');
+        $image_name = basename($image_path);
+
+        $data['image_name'] = $image_name;
 
         $product->update($data);
 

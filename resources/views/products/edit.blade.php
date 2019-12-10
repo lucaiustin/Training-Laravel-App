@@ -6,14 +6,27 @@
             {{ method_field('PATCH') }}
             {{ csrf_field() }}
 
-            <p><input type="text" name="title" placeholder="{{ __('Title') }}" value="{{  $product->title }}" required></p>
-            <p><input type="text" name="price" placeholder="{{ __('Price') }}" value="{{  $product->price }}" required></p>
-            <p><textarea name="description" required>{{ $product->description  }}</textarea></p>
-            <p><input type="text" name="image_name" placeholder="{{ __('Image Name') }}" value="{{  $product->image_name }}" required></p>
-            <p><input type="file" name="image" /></p>
-            <p><button type="submit">{{ __('Update Product') }}</button></p>
+            <input type="text" name="title" placeholder="{{ __('Title') }}" value="{{  $product->title }}" required>
+            @error('title')
+            {{ $message }}
+            @enderror
+            <br>
+            <input type="text" name="description"  placeholder="{{ __('Description') }}" value="{{  $product->description }}" required>
+            @error('description')
+            {{ $message }}
+            @enderror
+            <br>
+            <input type="text" name="price" placeholder="{{ __('Price') }}" value="{{  $product->price }}" required>
+            @error('price')
+            {{ $message }}
+            @enderror
+            <br>
+            <input type="file" name="image" />
+            @error('image')
+            {{ $message }}
+            @enderror
+            <br>
+            <button type="submit">{{ __('Save') }}</button>
         </form>
-
-        @include('layouts.errors')
     </div>
 @endsection

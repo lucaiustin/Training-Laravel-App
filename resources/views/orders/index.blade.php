@@ -3,8 +3,11 @@
 @section('content')
     <div class="container">
         @foreach ($orders as $order)
-            @include('layouts.order')
-            <a href="/order/{{ $order->id }}">{{ __('View') }}</a>
+                <p>{{ $order->created_at }}</p>
+                <p>{{ $order->contact_details }}</p>
+                <p>{{ $order->products->sum('price') }}</p>
+
+            <a href="/order/{{ $order->id }}">{{ __('View Order') }}</a>
             <hr>
         @endforeach
     </div>

@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 
 Route::get('/cart/{id}', 'ShopController@removeFromCart');
 Route::get('/cart', 'ShopController@cart');
+Route::post('/cart', 'ShopController@addNewOrder');
 
 Route::get('/login', 'AuthController@login');
 Route::post('/login', 'AuthController@login')->name('login');
@@ -28,7 +29,6 @@ Route::get('/product/{id}', 'ProductController@edit');
 Route::patch('/product/{id}', 'ProductController@update');
 
 Route::get('/orders', 'OrderController@index');
-Route::post('/orders', 'OrderController@store');
 Route::get('/order/{id}', 'OrderController@show');
 
 Route::get('/', 'ShopController@index');

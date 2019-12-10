@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use App\Models\Product;
+use App\Models\Order;
+use App\Mail\CartMail;
 
 class ShopController extends Controller
 {
@@ -27,6 +30,34 @@ class ShopController extends Controller
         $products = Product::whereIn('id', $sessionProductsIds)->get();
 
         return view('shop.cart', ['products' => $products]);
+    }
+
+    public function addNewOrder(Request $request)
+    {
+        $sessionProductsIds = session('products_ids');
+        $products = Product::whereIn('id', $sessionProductsIds)->get();
+
+        if (count($products) < 1) {
+            return back()->with('msg', 'There are not enough products!');
+        }
+
+        $data = $request->validate([
+            'name' => ['required', 'max:255'],
+            'contact_details' => 'required',
+            'comments' => 'required',
+        ]);
+        $data['created_at'] = date('Y-m-d H:i:s');
+        
+        $order = Order::create($data);
+        $order->products()->attach($products);
+
+        try {
+            Mail::to(config('constants.send_mail_to'))->send(new CartMail($order));
+        } catch (\Exception $e) {
+            return back()->with('msg', 'Unable to send email. Please try again.');
+        }
+
+        return back()->with('msg', 'Your mail has been sent successfully. The order has been created.');
     }
 
     public function removeFromCart(Request $request, $id)

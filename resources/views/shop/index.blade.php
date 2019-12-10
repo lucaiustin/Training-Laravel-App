@@ -2,14 +2,14 @@
 
 @section('content')
     <div class="container">
-        @foreach ($products as $product)
-            <div>
+        <div class="product-list">
+            @foreach ($products as $product)
                 @include('layouts.product')
-
                 <a href="/{{ $product->id }}">{{ __('Add') }}</a>
-            </div>
-            <hr>
-        @endforeach
-        <a href="/cart">{{ __('Cart') }}</a>
+                <hr>
+            @endforeach
+        </div>
+        <a href="/cart">{{ __('Go to cart') }}</a>
     </div>
 @endsection
+

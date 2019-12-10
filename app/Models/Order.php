@@ -5,7 +5,7 @@ namespace App\Models;
 class Order extends Model
 {
     protected $fillable = [
-        'name', 'contact_details', 'comments',
+        'name', 'contact_details', 'comments', 'created_at',
     ];
 
     public function products()

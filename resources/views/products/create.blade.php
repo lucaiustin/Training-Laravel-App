@@ -5,16 +5,27 @@
         <form method="POST" action="/product" enctype="multipart/form-data">
             {{ csrf_field()  }}
 
-            <ul>
-                <li><input type="text" name="title" placeholder="{{ __('Title') }}" value="{{ old('title') }}" required></li>
-                <li><input type="text" name="price" placeholder="{{ __('Price') }}" value="{{ old('price') }}" required></li>
-                <li><textarea name="description" placeholder="{{ __('Description') }}" required>{{ old('description') }}</textarea></li>
-                <p><input type="text" name="image_name" placeholder="{{ __('Image Name') }}" value="{{  old('image_name') }}" required></p>
-                <input type="file" name="image" />
-            </ul>
-            <button type="submit">{{ __('Create') }}</button>
+            <input type="text" name="title" placeholder="{{ __('Title') }}" value="{{ old('title') }}" required>
+            @error('title')
+            {{ $message }}
+            @enderror
+            <br>
+            <input type="text" name="price" placeholder="{{ __('Price') }}" value="{{ old('price') }}" required>
+            @error('price')
+            {{ $message }}
+            @enderror
+            <br>
+            <input type="text" name="description" placeholder="{{ __('Description') }}" value="{{ old('description') }}" required>
+            @error('description')
+            {{ $message }}
+            @enderror
+            <br>
+            <input type="file" name="image" />
+            @error('image')
+            {{ $message }}
+            @enderror
+            <br>
+            <button type="submit">{{ __('Save') }}</button>
         </form>
-
-        @include('layouts.errors')
     </div>
 @endsection
