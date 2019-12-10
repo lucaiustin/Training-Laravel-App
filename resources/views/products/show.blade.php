@@ -5,7 +5,7 @@
         <div>
             @include('layouts.product')
 
-            <a href="/product/{{ $product->id }}/edit">Edit</a>
+            <a href="/product/{{ $product->id }}/edit">{{ __('Edit') }}</a>
         </div>
 
         <hr>
