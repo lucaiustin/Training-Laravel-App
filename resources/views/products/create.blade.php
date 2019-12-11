@@ -10,13 +10,13 @@
             {{ $message }}
             @enderror
             <br>
-            <input type="text" name="price" placeholder="{{ __('Price') }}" value="{{ old('price') }}" required>
-            @error('price')
+            <input type="text" name="description" placeholder="{{ __('Description') }}" value="{{ old('description') }}" required>
+            @error('description')
             {{ $message }}
             @enderror
             <br>
-            <input type="text" name="description" placeholder="{{ __('Description') }}" value="{{ old('description') }}" required>
-            @error('description')
+            <input type="text" name="price" placeholder="{{ __('Price') }}" value="{{ old('price') }}" required>
+            @error('price')
             {{ $message }}
             @enderror
             <br>
@@ -27,5 +27,7 @@
             <br>
             <button type="submit">{{ __('Save') }}</button>
         </form>
+        <br>
+        <a href="/products">Products</a>
     </div>
 @endsection

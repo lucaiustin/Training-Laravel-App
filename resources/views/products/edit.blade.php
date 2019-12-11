@@ -28,5 +28,7 @@
             <br>
             <button type="submit">{{ __('Save') }}</button>
         </form>
+        <br>
+        <a href="/products">Products</a>
     </div>
 @endsection

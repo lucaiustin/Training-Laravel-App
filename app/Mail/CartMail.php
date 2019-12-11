@@ -37,6 +37,6 @@ class CartMail extends Mailable
                 'contact_details' => $this->order->contact_details,
                 'comments' => $this->order->comments,
                 'products' => $this->order->products
-            ]);
+            ])->subject('New order');
     }
 }

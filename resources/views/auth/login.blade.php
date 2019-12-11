@@ -17,5 +17,8 @@
             <br>
             <button type="submit">{{ __('Login') }}</button>
         </form>
+        @if ($errors->any())
+            {{ __('Please try again.') }}
+        @endif
     </div>
 @endsection

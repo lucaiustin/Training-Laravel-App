@@ -5,7 +5,7 @@
         @foreach ($products as $product)
             <div>
                 @include('layouts.product')
-                <a href="/cart/{{$product->id}}">{{__('Remove')}}</a>
+                <a href="/cart/{{ $product->id }}">{{ __('Remove') }}</a>
             </div>
             <hr>
         @endforeach
@@ -24,7 +24,7 @@
             {{ $message }}
             @enderror
             <br>
-            <textarea name="comments" } rows="10" cols="30" placeholder="{{__('Comments')}}" required>{{ old('comments') }}</textarea>
+            <textarea name="comments" } rows="10" cols="30" placeholder="{{ __('Comments') }}" required>{{ old('comments') }}</textarea>
             @error('comments')
             {{ $message }}
             @enderror
