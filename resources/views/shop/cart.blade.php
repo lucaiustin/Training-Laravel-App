@@ -24,7 +24,7 @@
             {{ $message }}
             @enderror
             <br>
-            <textarea name="comments" } rows="10" cols="30" placeholder="{{ __('Comments') }}" required>{{ old('comments') }}</textarea>
+            <textarea name="comments" rows="10" cols="30" placeholder="{{ __('Comments') }}" required>{{ old('comments') }}</textarea>
             @error('comments')
             {{ $message }}
             @enderror

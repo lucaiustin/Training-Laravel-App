@@ -31,7 +31,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products.create');
+        return view('products.form');
     }
 
     /**
@@ -79,7 +79,7 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::findOrFail($id);
-        return view('products.edit', ['product' => $product]);
+        return view('products.form', ['product' => $product]);
     }
 
 
