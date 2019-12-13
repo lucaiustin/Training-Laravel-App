@@ -11,17 +11,17 @@
             {{ csrf_field()  }}
         @endif
 
-            <input type="text" name="title" placeholder="{{ __('Title') }}" value="{{ (isset($product->title) ? $product->title : old('title')) }}" required>
+            <input type="text" name="title" placeholder="{{ __('Title') }}" value="{{ (isset($product->title) ? old('title', $product->title) : old('title')) }}" required>
             @error('title')
             {{ $message }}
             @enderror
             <br>
-            <input type="text" name="description" placeholder="{{ __('Description') }}" value="{{ (isset($product->description) ? $product->description : old('description')) }}" required>
+            <input type="text" name="description" placeholder="{{ __('Description') }}" value="{{ (isset($product->description) ? old('description', $product->description) : old('description')) }}" required>
             @error('description')
             {{ $message }}
             @enderror
             <br>
-            <input type="text" name="price" placeholder="{{ __('Price') }}" value="{{ (isset($product->price) ? $product->price : old('price')) }}" required>
+            <input type="text" name="price" placeholder="{{ __('Price') }}" value="{{ (isset($product->price) ?  old('price', $product->price) : old('price')) }}" required>
             @error('price')
             {{ $message }}
             @enderror
