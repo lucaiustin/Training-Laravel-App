@@ -13,6 +13,10 @@
 
 use Illuminate\Http\Request;
 
+Route::get('/spa', function () {
+    return view('spa.spa');
+});
+
 Route::get('/cart/{id}', 'ShopController@removeFromCart');
 Route::get('/cart', 'ShopController@cart');
 Route::post('/cart', 'ShopController@addNewOrder');
@@ -33,5 +37,3 @@ Route::get('/order/{id}', 'OrderController@show');
 
 Route::get('/', 'ShopController@index');
 Route::get('/{id}', 'ShopController@addToCart');
-
-

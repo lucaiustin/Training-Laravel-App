@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Models\Product;
 use App\Models\Order;
 use App\Mail\CartMail;
+use Illuminate\Http\Response;
 
 class ShopController extends Controller
 {
@@ -14,6 +15,10 @@ class ShopController extends Controller
     {
         $sessionProductsIds =  $request->session()->get('products_ids', []);
         $products = Product::whereNotIn('id', $sessionProductsIds)->get();
+
+        if ($request->ajax()) {
+            return $products;
+        }
 
         return view('shop.index', ['products' => $products]);
     }
@@ -29,6 +34,10 @@ class ShopController extends Controller
         $sessionProductsIds = $request->session()->get('products_ids', []);
         $products = Product::whereIn('id', $sessionProductsIds)->get();
 
+        if ($request->ajax()) {
+            return $products;
+        }
+
         return view('shop.cart', ['products' => $products]);
     }
 
@@ -38,7 +47,11 @@ class ShopController extends Controller
         $products = Product::whereIn('id', $sessionProductsIds)->get();
 
         if (count($products) < 1) {
-            return back()->with('msg', 'There are not enough products!');
+            if ($request->ajax()) {
+                return response()->json(['msg'=>'There are not enough products!']);
+            } else {
+                return back()->with('msg', 'There are not enough products!');
+            }
         }
 
         $data = $request->validate([
@@ -47,17 +60,24 @@ class ShopController extends Controller
             'comments' => 'required',
         ]);
         $data['created_at'] = date('Y-m-d H:i:s');
-        
+
         $order = Order::create($data);
         $order->products()->attach($products);
 
         try {
             Mail::to(config('constants.send_mail_to'))->send(new CartMail($order));
         } catch (\Exception $e) {
-            return back()->with('msg', 'Unable to send email. Please try again.');
+            if ($request->ajax()) {
+                return response()->json(['msg'=>'Unable to send email. Please try again.']);
+            } else {
+                return back()->with('msg', 'Unable to send email. Please try again.');
+            }
         }
-
-        return back()->with('msg', 'Your mail has been sent successfully. The order has been created.');
+        if ($request->ajax()) {
+            return response()->json(['msg'=>'Your mail has been sent successfully. The order has been created.']);
+        } else {
+            return back()->with('msg', 'Your mail has been sent successfully. The order has been created.');
+        }
     }
 
     public function removeFromCart(Request $request, $id)
