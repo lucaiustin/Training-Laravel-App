@@ -1,6 +1,6 @@
 <div class="container">
-    <div class="product-list"></div>
-    <a href="/">{{__('Go to index')}}</a>
+    <div class="product-list" id="product-list"></div>
+    <a href="#">{{__('Go to index')}}</a>
 
     <form method="POST" id="cartForm">
         {{ csrf_field() }}

@@ -23,9 +23,17 @@ class ShopController extends Controller
         return view('shop.index', ['products' => $products]);
     }
 
-    public function addToCart($id)
+    public function addToCart(Request $request, $id)
     {
         session()->push('products_ids', $id);
+
+        if ($request->ajax()) {
+            $sessionProductsIds =  $request->session()->get('products_ids', []);
+            $products = Product::whereNotIn('id', $sessionProductsIds)->get();
+
+            return $products;
+        }
+
         return redirect('/');
     }
 
@@ -87,6 +95,14 @@ class ShopController extends Controller
             unset($products_ids[$key]);
         }
         session()->put('products_ids', $products_ids);
-        return redirect('/cart');
+
+        if ($request->ajax()) {
+            $sessionProductsIds = $request->session()->get('products_ids', []);
+            $products = Product::whereIn('id', $sessionProductsIds)->get();
+
+            return $products;
+        }
+
+        return redirect( '/cart' );
     }
 }
