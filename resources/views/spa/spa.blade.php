@@ -27,6 +27,15 @@
 
                     if (page.localeCompare('#cart') === 0) {
                         html += ['<a href="#cart" class="removeFromCart" data-value="' + product.id + '">{{ __('Remove') }}</a>'].join('')
+                    } else if (page.localeCompare('#products') === 0) {
+                        html += [
+                            '<a href="/product/' + product.id + '">Edit</a>' +
+                            '<form method="POST" class="deleteForm" action="/products/' + product.id + '">' +
+                            '@method("DELETE")' +
+                            '@csrf' +
+                            '<button type="submit">{{ __('Delete Product') }}</button>' +
+                            '</form>'
+                        ].join('')
                     } else {
                         html += ['<a href="#" class="addToCart" data-value="' + product.id + '">{{ __('Add') }}</a>'].join('')
                     }
@@ -52,6 +61,60 @@
                     success: function (response) {
                         $('.index .product-list').html(renderList(response, '#'))
                     },
+                })
+            })
+
+            $('body').on('submit', '.deleteForm', function (event) {
+                event.preventDefault();
+                let formData = new FormData($('.deleteForm')[0])
+
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: $(this).attr('action'),
+                    type: 'post',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        $('.products .product-list').html(renderList(response, '#products'))
+                    },
+                })
+            })
+
+            $('#addPrdouct').submit(function (event) {
+                event.preventDefault()
+                let formData = new FormData($('#addPrdouct')[0])
+
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: '/product',
+                    type: 'post',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        console.log(data);
+                        //$('.submit-message').html(data.msg);
+                    },
+                    error: function (data) {
+                        console.log(data);
+                        // validationErrors = data.responseJSON.errors
+                        // if (validationErrors.hasOwnProperty('name')) {
+                        //     $('.validation-name-error').html(data.responseJSON.errors.name)
+                        // }
+                        //
+                        // if (validationErrors.hasOwnProperty('contact_details')) {
+                        //     $('.validation-contact-details-error').html(data.responseJSON.errors.contact_details)
+                        // }
+                        //
+                        // if (validationErrors.hasOwnProperty('comments')) {
+                        //     $('.validation-comments-error').html(data.responseJSON.errors.comments)
+                        // }
+                    }
                 })
             })
 
@@ -110,6 +173,24 @@
                             }
                         })
                         break
+                    case '#products':
+                        // Show the cart page
+                        $('.products').show()
+                        //Load the cart products from the server
+                        $.ajax('/products', {
+                            dataType: 'json',
+                            success: function (response) {
+                                // Render the products in the cart list
+                                $('.products .product-list').html(renderList(response, parts[0]))
+                            }
+                        })
+                        break
+                    case '#product':
+                        // Show the cart page
+                        $('.product').show()
+                        //Load the cart products from the server
+
+                        break
                     default:
                         // If all else fails, always default to index
                         // Show the index page
@@ -142,6 +223,14 @@
     <!-- The cart page -->
     <div class="page cart">
         @include('spa.shop.cart')
+    </div>
+
+    <div class="page products">
+        @include('spa.products.index')
+    </div>
+
+    <div class="page product">
+        @include('spa.products.form')
     </div>
 @endsection
 

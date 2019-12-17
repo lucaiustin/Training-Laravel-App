@@ -18,9 +18,13 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $products = Product::all();
+
+        if ($request->ajax()) {
+            return $products;
+        }
         return view('products.index', ['products' => $products]);
     }
 
@@ -82,7 +86,6 @@ class ProductController extends Controller
         return view('products.form', ['product' => $product]);
     }
 
-
     /**
      * Update the specified resource in storage.
      *
@@ -119,13 +122,17 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $product = Product::findOrFail($id);
 
         unlink(storage_path('app/public/images/'.$product->image_name));
         $product->delete();
 
+        if ($request->ajax()) {
+            $products = Product::all();
+            return $products;
+        }
         return redirect('/products');
     }
 }
