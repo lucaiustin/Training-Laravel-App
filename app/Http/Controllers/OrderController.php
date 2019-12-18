@@ -20,7 +20,7 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $orders = DB::table('orders')
             ->join('order_product', 'orders.id', '=', 'order_product.order_id')
@@ -29,6 +29,9 @@ class OrderController extends Controller
             ->groupBy('orders.id')
             ->get();
 
+        if ($request->ajax()) {
+            return $orders;
+        }
         return view('orders.index', ['orders' => $orders]);
     }
 
@@ -38,9 +41,16 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         $order = Order::findOrFail($id);
+
+        if ($request->ajax()) {
+            return response()->json([
+                'order' => $order,
+                'products' => $order->products
+            ]);
+        }
         return view('orders.show', ['order' => $order]);
     }
 }
