@@ -29,7 +29,7 @@
                         html += ['<a href="#cart" class="removeFromCart" data-value="' + product.id + '">{{ __('Remove') }}</a>'].join('')
                     } else if (page.localeCompare('#products') === 0) {
                         html += [
-                            '<a href="/product/' + product.id + '">Edit</a>' +
+                            '<a href="#product/' + product.id + '">Edit</a>' +
                             '<form method="POST" class="deleteForm" action="/products/' + product.id + '">' +
                             '@method("DELETE")' +
                             '@csrf' +
@@ -97,23 +97,25 @@
                     processData: false,
                     contentType: false,
                     success: function (data) {
-                        console.log(data);
-                        //$('.submit-message').html(data.msg);
+                        window.location = '#products';
                     },
                     error: function (data) {
-                        console.log(data);
-                        // validationErrors = data.responseJSON.errors
-                        // if (validationErrors.hasOwnProperty('name')) {
-                        //     $('.validation-name-error').html(data.responseJSON.errors.name)
-                        // }
-                        //
-                        // if (validationErrors.hasOwnProperty('contact_details')) {
-                        //     $('.validation-contact-details-error').html(data.responseJSON.errors.contact_details)
-                        // }
-                        //
-                        // if (validationErrors.hasOwnProperty('comments')) {
-                        //     $('.validation-comments-error').html(data.responseJSON.errors.comments)
-                        // }
+                        validationErrors = data.responseJSON.errors
+                        if (validationErrors.hasOwnProperty('title')) {
+                            $('.validation-title-error').html(data.responseJSON.errors.title)
+                        }
+
+                        if (validationErrors.hasOwnProperty('contact_details')) {
+                            $('.validation-description-error').html(data.responseJSON.errors.description)
+                        }
+
+                        if (validationErrors.hasOwnProperty('price')) {
+                            $('.validation-price-error').html(data.responseJSON.errors.price)
+                        }
+
+                        if (validationErrors.hasOwnProperty('image')) {
+                            $('.validation-image-error').html(data.responseJSON.errors.image)
+                        }
                     }
                 })
             })
@@ -186,10 +188,21 @@
                         })
                         break
                     case '#product':
-                        // Show the cart page
+                        if (typeof parts[1] !== 'undefined') {
+                            $.ajax('/product/' + parts[1], {
+                                dataType: 'json',
+                                success: function (response) {
+                                    console.log(response);
+                                    $('input[name=title]').val(response.title);
+                                    $('input[name=description]').val(response.description);
+                                    $('input[name=price]').val(response.price);
+                                },
+                                error: function (data) {
+                                    console.log(data);
+                                }
+                            })
+                        }
                         $('.product').show()
-                        //Load the cart products from the server
-
                         break
                     default:
                         // If all else fails, always default to index
@@ -232,6 +245,11 @@
     <div class="page product">
         @include('spa.products.form')
     </div>
+
+    <div class="page orders">
+        @include('spa.orders.index')
+    </div>
+
 @endsection
 
 
