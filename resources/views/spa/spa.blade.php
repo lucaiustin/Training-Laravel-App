@@ -9,16 +9,16 @@
 
             function renderProduct (product) {
                 return [
-                    '<div class="product">' +
-                        '<div class="product-image">' +
-                            '<img src="storage/images/' + product.image_name + '">' +
-                        '</div>' +
-                        '<div class="product-info">' +
-                            '<p>' + product.id + '</p>' +
-                            '<p>' + product.title + '</p>' +
-                            '<p>' + product.description + '</p>' +
-                            '<p>' + product.price + '</p>' +
-                        '</div>' +
+                    '<div class="product">',
+                        '<div class="product-image">',
+                            '<img src="storage/images/' + product.image_name + '">',
+                        '</div>',
+                        '<div class="product-info">',
+                            '<p>' + product.id + '</p>',
+                            '<p>' + product.title + '</p>',
+                            '<p>' + product.description + '</p>',
+                            '<p>' + product.price + '</p>',
+                        '</div>',
                     '</div>'
                 ].join('');
             }
@@ -29,21 +29,21 @@
                     html += renderProduct(product);
 
                     if (page.localeCompare('#cart') === 0) {
-                        html += ['<a href="#cart" class="removeFromCart" data-value="' + product.id + '">{{ __('Remove') }}</a>'].join('');
+                        html += '<a href="#cart" class="removeFromCart" data-value="' + product.id + '">{{ __('Remove') }}</a>';
                     } else if (page.localeCompare('#products') === 0) {
                         html += [
-                            '<a href="#product/' + product.id + '">Edit</a>' +
-                            '<form method="POST" class="deleteForm" action="/products/' + product.id + '">' +
-                                '@method("DELETE")' +
-                                '@csrf' +
-                                '<button type="submit">{{ __('Delete Product') }}</button>' +
+                            '<a href="#product/' + product.id + '">Edit</a>',
+                            '<form method="POST" class="deleteForm" action="/products/' + product.id + '">',
+                                '@method("DELETE")',
+                                '@csrf',
+                                '<button type="submit">{{ __('Delete Product') }}</button>',
                             '</form>'
                         ].join('');
                     } else {
-                        html += ['<a href="#" class="addToCart" data-value="' + product.id + '">{{ __('Add') }}</a>'].join('');
+                        html += '<a href="#" class="addToCart" data-value="' + product.id + '">{{ __('Add') }}</a>';
                     }
 
-                    html += ['<hr>'].join('');
+                    html += '<hr>';
                 })
 
                 return html;
@@ -53,10 +53,10 @@
                 var html = '';
                 $.each(orders, function (key, order) {
                     html += [
-                        '<p>' + order.created_at + '</p>' +
-                        '<p>' + order.contact_details + '</p>' +
-                        '<p>' + order.prices_sum + '</p>' +
-                        '<a href="/order/' + order.id + '">{{ __('View Order') }}</a>' +
+                        '<p>' + order.created_at + '</p>',
+                        '<p>' + order.contact_details + '</p>',
+                        '<p>' + order.prices_sum + '</p>',
+                        '<a href="#order/' + order.id + '">{{ __('View Order') }}</a>',
                         '<hr>'
                     ].join('');
                 })
@@ -74,16 +74,18 @@
             function renderOrder (response) {
                 var order = response.order;
                 var products = response.products;
-                var html = [order.name +
-                '<br>' +
-                order.contact_details +
-                '<br>' +
-                order.comments +
-                '<br>' +
-                getPricesSum(products) +
-                '<br>' +
-                order.created_at +
-                '<br><br>'].join('');
+                var html = [
+                    order.name,
+                    '<br>',
+                    order.contact_details,
+                    '<br>',
+                    order.comments,
+                    '<br>',
+                    getPricesSum(products),
+                    '<br>',
+                    order.created_at,
+                    '<br><br>'
+                ].join('');
 
                 $.each(products, function (key, product) {
                     html += renderProduct(product);
