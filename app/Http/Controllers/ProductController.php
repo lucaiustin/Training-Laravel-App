@@ -24,6 +24,7 @@ class ProductController extends Controller
         $products = Product::all();
 
         if ($request->ajax()) {
+
             return $products;
         }
         return view( 'products.index', ['products' => $products] );

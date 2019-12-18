@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="product-list" id="product-list"></div>
+    <div class="product-list"></div>
     <a href="#">{{__('Go to index')}}</a>
 
     <form method="POST" id="cartForm">

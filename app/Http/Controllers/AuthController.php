@@ -36,9 +36,15 @@ class AuthController extends Controller
 
             if ($validator->fails())
             {
+                if ($request->ajax()) {
+                    return response()->json(['errors'=>$validator->errors()], 401);
+                }
                 return redirect()->back()->withErrors($validator->errors());
             } else {
                 $request->session()->put('username', $request->input('username'));
+                if ($request->ajax()) {
+                    return 'Login Successfuly!';
+                }
                 return redirect('/products');
             }
         }
@@ -47,6 +53,11 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         $request->session()->forget('username');
+
+        if ($request->ajax()) {
+            return 'Logout Successfuly!';
+        }
+
         return redirect('/login');
     }
 }

@@ -16,6 +16,9 @@ class Auth
     public function handle($request, Closure $next)
     {
         if (!$request->session()->has('username')) {
+            if ($request->ajax()) {
+                return response()->json(['errors'=>'Login Error'], 401);
+            }
             return redirect('/login');
         }
         return $next($request);

@@ -197,9 +197,58 @@
                             $('.validation-comments-error').html(data.responseJSON.errors.comments);
                         }
                     }
-                })
-            })
+                });
+            });
 
+            $('#login-form').submit(function (event) {
+                event.preventDefault();
+                let formData = new FormData($('#login-form')[0]);
+
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: '/login',
+                    type: 'post',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        window.location = '#products';
+                    },
+                    error: function (data) {
+                        validationErrors = data.responseJSON.errors;
+                        $('.validation-username-error').html('');
+                        $('.validation-password-error').html('');
+                        if (validationErrors.hasOwnProperty('username')) {
+                            $('.validation-username-error').html(validationErrors.username);
+                        }
+
+                        if (validationErrors.hasOwnProperty('password')) {
+                            $('.validation-password-error').html(validationErrors.password);
+                        }
+                    }
+                });
+            });
+
+            $('#frm-logout').submit(function (event) {
+                event.preventDefault();
+                var formData = new FormData($('#frm-logout')[0]);
+
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: $(this).attr('action'),
+                    type: 'post',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        window.location = '#login';
+                    },
+                });
+            });
             /**
              * URL hash change handler
              */
@@ -228,6 +277,9 @@
                             dataType: 'json',
                             success: function (response) {
                                 $('.products .product-list').html(renderProductsList(response, parts[0]));
+                            },
+                            error: function (response) {
+                                window.location = '#login';
                             }
                         })
                         break;
@@ -242,6 +294,9 @@
                                     $('input[name=description]').val(response.description);
                                     $('input[name=price]').val(response.price);
                                 },
+                                error: function (response) {
+                                    window.location = '#login';
+                                }
                             })
                         }
                         $('.product').show();
@@ -252,6 +307,9 @@
                             dataType: 'json',
                             success: function (response) {
                                 $('.orders-list').html(renderOrdersList(response));
+                            },
+                            error: function (response) {
+                                window.location = '#login';
                             }
                         })
                         break;
@@ -261,8 +319,14 @@
                             dataType: 'json',
                             success: function (response) {
                                 $('.show-order').html(renderOrder(response));
+                            },
+                            error: function (response) {
+                                window.location = '#login';
                             }
                         })
+                        break;
+                    case '#login':
+                        $('.login').show();
                         break;
                     default:
                         // If all else fails, always default to index
@@ -311,6 +375,10 @@
 
     <div class="page order">
         @include('spa.orders.show')
+    </div>
+
+    <div class="page login">
+        @include('spa.auth.login')
     </div>
 
 @endsection
