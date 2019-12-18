@@ -1,7 +1,7 @@
 <div class="container">
-    <form method="POST" action="/product" id="addPrdouct" enctype="multipart/form-data">
+    <form method="POST" action="/product" id="productsForm" enctype="multipart/form-data">
         {{ csrf_field()  }}
-
+        <div id ="patch-method"></div>
         <input type="text" name="title" placeholder="{{ __('Title') }}" value="{{ old('title') }}" required>
         <span class="validation-title-error"></span>
         <br>

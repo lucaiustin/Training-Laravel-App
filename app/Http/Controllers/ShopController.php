@@ -19,7 +19,6 @@ class ShopController extends Controller
         if ($request->ajax()) {
             return $products;
         }
-
         return view( 'shop.index', ['products' => $products] );
     }
 
@@ -33,7 +32,6 @@ class ShopController extends Controller
 
             return $products;
         }
-
         return redirect( '/' );
     }
 
@@ -45,7 +43,6 @@ class ShopController extends Controller
         if ($request->ajax()) {
             return $products;
         }
-
         return view( 'shop.cart', ['products' => $products] );
     }
 
