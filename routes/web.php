@@ -17,6 +17,10 @@ Route::get('/spa', function () {
     return view('spa.spa');
 });
 
+Route::get('/vue', function () {
+    return view('vue.shop.index');
+});
+
 Route::get('/cart/{id}', 'ShopController@removeFromCart');
 Route::get('/cart', 'ShopController@cart');
 Route::post('/cart', 'ShopController@addNewOrder');
