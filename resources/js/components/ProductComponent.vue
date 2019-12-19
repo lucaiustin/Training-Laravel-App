@@ -2,7 +2,7 @@
     <div>
         <div class="product">
             <div class="product-image">
-                <img v-bind:src="'storage/images/' + product.image_name">
+                <img v-bind:src="baseUrl + '/storage/images/' + product.image_name">
             </div>
             <div class="product-info">
                 <p> {{ product.id }} </p>
@@ -18,6 +18,11 @@
 
 <script>
     export default {
-        props: ['product']
+        props: ['product'],
+        computed: {
+            baseUrl: function () {
+                return window.location.origin;
+            }
+        }
     }
 </script>

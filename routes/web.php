@@ -21,6 +21,10 @@ Route::get('/vue', function () {
     return view('vue.shop.index');
 });
 
+Route::get('/vue/cart', function () {
+    return view('vue.shop.cart');
+});
+
 Route::get('/cart/{id}', 'ShopController@removeFromCart');
 Route::get('/cart', 'ShopController@cart');
 Route::post('/cart', 'ShopController@addNewOrder');
