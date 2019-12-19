@@ -10,15 +10,15 @@
             function renderProduct (product) {
                 return [
                     '<div class="product">',
-                        '<div class="product-image">',
-                            '<img src="storage/images/' + product.image_name + '">',
-                        '</div>',
-                        '<div class="product-info">',
-                            '<p>' + product.id + '</p>',
-                            '<p>' + product.title + '</p>',
-                            '<p>' + product.description + '</p>',
-                            '<p>' + product.price + '</p>',
-                        '</div>',
+                    '<div class="product-image">',
+                    '<img src="storage/images/' + product.image_name + '">',
+                    '</div>',
+                    '<div class="product-info">',
+                    '<p>' + product.id + '</p>',
+                    '<p>' + product.title + '</p>',
+                    '<p>' + product.description + '</p>',
+                    '<p>' + product.price + '</p>',
+                    '</div>',
                     '</div>'
                 ].join('');
             }
@@ -34,9 +34,9 @@
                         html += [
                             '<a href="#product/' + product.id + '">Edit</a>',
                             '<form method="POST" class="deleteForm" action="/products/' + product.id + '">',
-                                '@method("DELETE")',
-                                '@csrf',
-                                '<button type="submit">{{ __('Delete Product') }}</button>',
+                            '@method("DELETE")',
+                            '@csrf',
+                            '<button type="submit">{{ __('Delete Product') }}</button>',
                             '</form>'
                         ].join('');
                     } else {
@@ -44,7 +44,7 @@
                     }
 
                     html += '<hr>';
-                })
+                });
 
                 return html;
             }
@@ -59,7 +59,7 @@
                         '<a href="#order/' + order.id + '">{{ __('View Order') }}</a>',
                         '<hr>'
                     ].join('');
-                })
+                });
                 return html;
             }
 
@@ -67,7 +67,7 @@
                 var sum = 0;
                 $.each(products, function (key, product) {
                     sum += parseFloat(product.price);
-                })
+                });
                 return sum;
             }
 
@@ -89,7 +89,7 @@
 
                 $.each(products, function (key, product) {
                     html += renderProduct(product);
-                })
+                });
                 return html;
             }
 
@@ -132,7 +132,7 @@
 
             $('#productsForm').submit(function (event) {
                 event.preventDefault();
-                var formData = new FormData($('#productsForm')[0])
+                var formData = new FormData($('#productsForm')[0]);
 
                 $.ajax({
                     headers: {
@@ -145,6 +145,14 @@
                     contentType: false,
                     success: function (data) {
                         window.location = '#products';
+                        $('input[name=title]').val('');
+                        $('input[name=description]').val('');
+                        $('input[name=price]').val('');
+                        $('input[name=image]').val('');
+                        $('.validation-title-error').html('');
+                        $('.validation-description-error').html('');
+                        $('.validation-price-error').html('');
+                        $('.validation-image-error').html('');
                     },
                     error: function (data) {
                         validationErrors = data.responseJSON.errors;
@@ -182,6 +190,12 @@
                     contentType: false,
                     success: function (data) {
                         $('.submit-message').html(data.msg);
+                        $('input[name=name]').val('');
+                        $('input[name=contact_details]').val('');
+                        $('textarea[name=comments]').val('');
+                        $('.validation-name-error').html('');
+                        $('.validation-contact-details-error').html('');
+                        $('.validation-comments-error').html('');
                     },
                     error: function (data) {
                         validationErrors = data.responseJSON.errors;
@@ -215,6 +229,11 @@
                     contentType: false,
                     success: function (data) {
                         window.location = '#products';
+                        $('input[name=username]').val('');
+                        $('input[name=password]').val('');
+                        $('.validation-username-error').html('');
+                        $('.validation-password-error').html('');
+
                     },
                     error: function (data) {
                         validationErrors = data.responseJSON.errors;
@@ -231,9 +250,9 @@
                 });
             });
 
-            $('#frm-logout').submit(function (event) {
+            $('#logout-form').submit(function (event) {
                 event.preventDefault();
-                var formData = new FormData($('#frm-logout')[0]);
+                var formData = new FormData($('#logout-form')[0]);
 
                 $.ajax({
                     headers: {
@@ -269,7 +288,7 @@
                                 // Render the products in the cart list
                                 $('.cart .product-list').html(renderProductsList(response, parts[0]));
                             }
-                        })
+                        });
                         break;
                     case '#products':
                         $('.products').show();
@@ -281,15 +300,15 @@
                             error: function (response) {
                                 window.location = '#login';
                             }
-                        })
+                        });
                         break;
                     case '#product':
                         if (typeof parts[1] !== 'undefined') {
                             $.ajax('/product/' + parts[1], {
                                 dataType: 'json',
                                 success: function (response) {
-                                    $("#productsForm").attr('action', '/product/' + parts[1]);
-                                    $("#patch-method").html('{{ method_field('PATCH') }}');
+                                    $('#productsForm').attr('action', '/product/' + parts[1]);
+                                    $('#patch-method').html('{{ method_field('PATCH') }}');
                                     $('input[name=title]').val(response.title);
                                     $('input[name=description]').val(response.description);
                                     $('input[name=price]').val(response.price);
@@ -297,7 +316,7 @@
                                 error: function (response) {
                                     window.location = '#login';
                                 }
-                            })
+                            });
                         }
                         $('.product').show();
                         break;
@@ -311,7 +330,7 @@
                             error: function (response) {
                                 window.location = '#login';
                             }
-                        })
+                        });
                         break;
                     case '#order':
                         $('.order').show();
@@ -323,7 +342,7 @@
                             error: function (response) {
                                 window.location = '#login';
                             }
-                        })
+                        });
                         break;
                     case '#login':
                         $('.login').show();
@@ -339,11 +358,11 @@
                                 // Render the products in the index list
                                 $('.index .product-list').html(renderProductsList(response, parts[0]));
                             }
-                        })
+                        });
                         break;
                 }
             }
-            window.onhashchange()
+            window.onhashchange();
         })
     </script>
 </head>
@@ -382,7 +401,6 @@
     </div>
 
 @endsection
-
 
 </body>
 </html>
