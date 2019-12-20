@@ -4,7 +4,7 @@
     <div class="container">
         <cart-products></cart-products>
 
-        <a href="/">{{__('Go to index')}}</a>
+        <a href="/vue">{{__('Go to index')}}</a>
 
 
     </div>

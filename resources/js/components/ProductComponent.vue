@@ -11,8 +11,6 @@
                 <p> {{ product.price }} </p>
             </div>
         </div>
-        <a v-bind:href="product.id">Add</a>
-        <hr>
     </div>
 </template>
 
