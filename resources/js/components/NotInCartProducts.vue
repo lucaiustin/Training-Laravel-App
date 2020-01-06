@@ -9,7 +9,8 @@
 </template>
 
 <script>
-    Vue.component('product', require('./ProductComponent.vue').default)
+    var product = require('./ProductComponent.vue').default;
+
     export default {
         data: function () {
             return {
@@ -33,6 +34,10 @@
                         this.products = response.data;
                     });
             }
-        }
+        },
+
+        components: {
+            'product' : product
+        },
     }
 </script>

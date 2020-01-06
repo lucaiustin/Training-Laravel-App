@@ -18,11 +18,7 @@ Route::get('/spa', function () {
 });
 
 Route::get('/vue', function () {
-    return view('vue.shop.index');
-});
-
-Route::get('/vue/cart', function () {
-    return view('vue.shop.cart');
+    return view('vue.index');
 });
 
 Route::get('/cart/{id}', 'ShopController@removeFromCart');

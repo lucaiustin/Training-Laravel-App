@@ -18,11 +18,14 @@
             <br>
             <button type="submit">Checkout</button>
         </form>
+        <span v-model="submitForm">{{ submitForm }}</span>
 
     </div>
 </template>
 
 <script>
+    var product = require('./ProductComponent.vue').default;
+
     export default {
         data: function () {
             return {
@@ -32,7 +35,8 @@
                 comments: '',
                 nameErrors: '',
                 contactDetailsErrors: '',
-                commentsErrors: ''
+                commentsErrors: '',
+                submitForm: ''
             }
         },
 
@@ -53,15 +57,22 @@
                     comments: this.comments,
                     _token: this.csrf
                 })
+                .then(function (response) {
+                    if (response.data.hasOwnProperty('msg')) {
+                        self.submitForm = response.data.msg;
+                    }
+                })
                 .catch(function (error) {
-                    if (error.response.data.errors.hasOwnProperty('name')) {
-                        self.nameErrors = error.response.data.errors.name[0];
-                    }
-                    if (error.response.data.errors.hasOwnProperty('contact_details')) {
-                        self.contactDetailsErrors = error.response.data.errors.contact_details[0]
-                    }
-                    if (error.response.data.errors.hasOwnProperty('comments')) {
-                        self.commentsErrors = error.response.data.errors.comments[0]
+                    if (error.response.status === 422) {
+                        if (error.response.data.errors.hasOwnProperty('name')) {
+                            self.nameErrors = error.response.data.errors.name[0];
+                        }
+                        if (error.response.data.errors.hasOwnProperty('contact_details')) {
+                            self.contactDetailsErrors = error.response.data.errors.contact_details[0]
+                        }
+                        if (error.response.data.errors.hasOwnProperty('comments')) {
+                            self.commentsErrors = error.response.data.errors.comments[0]
+                        }
                     }
                 })
             },
@@ -79,6 +90,10 @@
             csrf: function () {
                 return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
             }
-        }
+        },
+
+        components: {
+            'product' : product
+        },
     }
 </script>

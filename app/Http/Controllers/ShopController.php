@@ -61,7 +61,7 @@ class ShopController extends Controller
 
         $data = $request->validate( [
             'name' => ['required', 'max:255'],
-            'contact_details' => 'numeric',
+            'contact_details' => 'required',
             'comments' => 'required',
         ] );
         $data['created_at'] = date( 'Y-m-d H:i:s' );
