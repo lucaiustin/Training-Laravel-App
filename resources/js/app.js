@@ -34,7 +34,6 @@ const messages = {
             save: "Save",
             products: "Products",
             viewOrder: "View Order",
-
         }
     }
 }

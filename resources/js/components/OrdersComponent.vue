@@ -5,7 +5,8 @@
                 <p> {{order.created_at}} </p>
                 <p> {{order.contact_details}} </p>
                 <p> {{order.prices_sum}} </p>
-                <router-link :to="{ name: 'order', params: { id: order.id }}">{{ $t('message.viewOrder') }}</router-link>
+                <router-link :to="{ name: 'order', params: { id: order.id }}">{{ $t('message.viewOrder') }}
+                </router-link>
                 <hr>
             </div>
         </div>

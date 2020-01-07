@@ -2,7 +2,8 @@
     <div>
         <div v-for="product in products" :key="product.id">
             <product v-bind:product="product"></product>
-            <a v-bind:href="'/' + product.id" v-on:click.prevent="removeProduct(product.id)">{{ $t('message.remove') }}</a>
+            <a v-bind:href="'/' + product.id" v-on:click.prevent="removeProduct(product.id)">{{ $t('message.remove')
+                }}</a>
             <hr>
         </div>
         <form method="POST" v-on:submit.prevent="onSubmit">
@@ -12,7 +13,8 @@
             <input type="text" v-model="contact_details" v-bind:placeholder="$t('message.contactDetails')" required>
             <span v-model="contactDetailsErrors">{{ contactDetailsErrors }}</span>
             <br>
-            <textarea v-model="comments" rows="10" cols="30" v-bind:placeholder="$t('message.comments')" required></textarea>
+            <textarea v-model="comments" rows="10" cols="30" v-bind:placeholder="$t('message.comments')"
+                      required></textarea>
             <span v-model="commentsErrors">{{ commentsErrors }}</span>
             <input type="hidden" name="_token" :value="csrf">
             <br>

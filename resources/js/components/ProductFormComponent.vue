@@ -5,10 +5,12 @@
                 <input type="text" v-model="title" v-bind:placeholder="$t('message.title')" value="title" required>
                 <span v-model="titleErrors">{{ titleErrors }}</span>
                 <br>
-                <input type="text" v-model="title" v-bind:placeholder="$t('message.description')" placeholder="Description" value="description" required>
+                <input type="text" v-model="title" v-bind:placeholder="$t('message.description')"
+                       placeholder="Description" value="description" required>
                 <span v-model="descriptionErrors">{{ descriptionErrors }}</span>
                 <br>
-                <input type="text" v-model="title" v-bind:placeholder="$t('message.price')" placeholder="Price" value="price" required>
+                <input type="text" v-model="title" v-bind:placeholder="$t('message.price')" placeholder="Price"
+                       value="price" required>
                 <span v-model="priceErrors">{{ priceErrors }}</span>
                 <br>
                 <input type="file" @change="onFileChanged"/>
