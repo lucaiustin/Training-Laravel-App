@@ -11,6 +11,7 @@
                 <br>
                 <button type="submit">{{ $t('message.login') }}</button>
             </form>
+            <span v-model="tryAgainMessage">{{ tryAgainMessage }}</span>
         </div>
     </div>
 </template>
@@ -22,7 +23,8 @@
                 username: '',
                 password: '',
                 usernameErrors: '',
-                passwordErrors: ''
+                passwordErrors: '',
+                tryAgainMessage: ''
             }
         },
 
@@ -35,19 +37,20 @@
                 formData.append('_token', self.csrf)
                 this.usernameErrors = ''
                 this.passwordErrors = ''
+                this.tryAgainMessage = ''
 
-                axios.post('login', formData)
+                axios.post('/login', formData)
                     .then(function (response) {
                         self.$router.push('products')
                     })
                     .catch(function (error) {
-                        console.log(error.response.data)
                         if (error.response.data.errors.hasOwnProperty('username')) {
                             self.usernameErrors = error.response.data.errors.username[0]
                         }
                         if (error.response.data.errors.hasOwnProperty('password')) {
                             self.passwordErrors = error.response.data.errors.password[0]
                         }
+                        self.tryAgainMessage = 'Please try again.'
                     })
             }
         },

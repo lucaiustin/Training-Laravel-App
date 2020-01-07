@@ -54,12 +54,14 @@
         methods: {
             onSubmit: function (event) {
                 let self = this
-                axios.post('/cart', {
-                    name: this.name,
-                    contact_details: this.contact_details,
-                    comments: this.comments,
-                    _token: this.csrf
-                })
+
+                let formData = new FormData()
+                formData.append('name', this.name)
+                formData.append('contact_details', this.contact_details)
+                formData.append('comments', this.comments)
+                formData.append('_token', self.csrf)
+
+                axios.post('/cart', formData)
                     .then(function (response) {
                         if (response.data.hasOwnProperty('msg')) {
                             self.submitForm = response.data.msg

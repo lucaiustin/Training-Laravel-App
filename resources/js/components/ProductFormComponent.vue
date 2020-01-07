@@ -44,9 +44,9 @@
             axios
                 .get('/product/' + this.$route.params.id)
                 .then(function (response) {
-                    self.title = response.data.title,
-                        self.description = response.data.description,
-                        self.price = response.data.price
+                    self.title = response.data.title;
+                    self.description = response.data.description;
+                    self.price = response.data.price;
                 })
                 .catch(function (error) {
                     if (error.response.status === 404) {
