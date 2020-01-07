@@ -17,6 +17,7 @@
 
 <script>
     var product = require('./ProductComponent.vue').default
+    import mixin from '../mixin'
     export default {
         data: function () {
             return {
@@ -26,6 +27,8 @@
             }
         },
 
+        mixins: [mixin],
+
         mounted () {
             let self = this
             axios
@@ -34,15 +37,16 @@
                     console.log(response.data)
                     this.products = response.data
                 }).catch(function (error) {
-                    if (error.response.status === 401) {
-                        self.$router.push('login')
-                    }
-                })
+                if (error.response.status === 401) {
+                    self.$router.push('login')
+                }
+            })
         },
 
         methods: {
             deleteProduct: function (id) {
                 let self = this
+                console.log(this.csrf)
                 axios.delete('/products/' + id, {
                     _token: this.csrf,
                     _method: this.method
@@ -58,21 +62,15 @@
             onSubmit: function (event) {
                 let self = this
                 let formData = new FormData()
-                formData.append('_token', self.csrf)
+                formData.append('_token', this.csrf)
 
                 axios.post('/logout', formData)
                     .then(function (response) {
-                       self.$router.push('login')
+                        self.$router.push('login')
                     })
                     .catch(function (error) {
                         console.log(error.response.data)
                     })
-            }
-        },
-
-        computed: {
-            csrf: function () {
-                return document.querySelector('meta[name="csrf-token"]').getAttribute('content')
             }
         },
 

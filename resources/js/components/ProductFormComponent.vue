@@ -5,11 +5,11 @@
                 <input type="text" v-model="title" v-bind:placeholder="$t('message.title')" value="title" required>
                 <span v-model="titleErrors">{{ titleErrors }}</span>
                 <br>
-                <input type="text" v-model="title" v-bind:placeholder="$t('message.description')"
+                <input type="text" v-model="description" v-bind:placeholder="$t('message.description')"
                        placeholder="Description" value="description" required>
                 <span v-model="descriptionErrors">{{ descriptionErrors }}</span>
                 <br>
-                <input type="text" v-model="title" v-bind:placeholder="$t('message.price')" placeholder="Price"
+                <input type="text" v-model="price" v-bind:placeholder="$t('message.price')" placeholder="Price"
                        value="price" required>
                 <span v-model="priceErrors">{{ priceErrors }}</span>
                 <br>
@@ -25,6 +25,7 @@
 </template>
 
 <script>
+    import mixin from '../mixin'
     export default {
         data: function () {
             return {
@@ -39,14 +40,16 @@
             }
         },
 
+        mixins: [mixin],
+
         mounted () {
             let self = this
             axios
                 .get('/product/' + this.$route.params.id)
                 .then(function (response) {
-                    self.title = response.data.title;
-                    self.description = response.data.description;
-                    self.price = response.data.price;
+                    self.title = response.data.title
+                    self.description = response.data.description
+                    self.price = response.data.price
                 })
                 .catch(function (error) {
                     if (error.response.status === 404) {
@@ -112,11 +115,5 @@
 
             },
         },
-
-        computed: {
-            csrf: function () {
-                return document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            }
-        }
     }
 </script>

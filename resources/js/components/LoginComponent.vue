@@ -17,6 +17,7 @@
 </template>
 
 <script>
+    import mixin from '../mixin'
     export default {
         data: function () {
             return {
@@ -27,6 +28,8 @@
                 tryAgainMessage: ''
             }
         },
+
+        mixins: [mixin],
 
         methods: {
             onSubmit: function (event) {
@@ -55,10 +58,5 @@
             }
         },
 
-        computed: {
-            csrf: function () {
-                return document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            }
-        }
     }
 </script>

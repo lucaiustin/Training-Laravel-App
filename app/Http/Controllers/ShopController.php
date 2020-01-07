@@ -102,4 +102,15 @@ class ShopController extends Controller
 
         return redirect( '/cart' );
     }
+
+    public function removeAllFromCart (Request $request)
+    {
+        session()->put( 'products_ids', []);
+
+        if ($request->ajax()) {
+            return 'Empty list!';
+        }
+
+        return redirect( '/index' );
+    }
 }

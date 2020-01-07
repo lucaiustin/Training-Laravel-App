@@ -16,7 +16,6 @@
             <textarea v-model="comments" rows="10" cols="30" v-bind:placeholder="$t('message.comments')"
                       required></textarea>
             <span v-model="commentsErrors">{{ commentsErrors }}</span>
-            <input type="hidden" name="_token" :value="csrf">
             <br>
             <button type="submit">{{ $t('message.checkout') }}</button>
         </form>
@@ -28,8 +27,10 @@
 
 <script>
     var product = require('./ProductComponent.vue').default
+    import mixin from '../mixin'
 
     export default {
+
         data: function () {
             return {
                 products: [],
@@ -42,6 +43,8 @@
                 submitForm: ''
             }
         },
+
+        mixins: [mixin],
 
         mounted () {
             axios
@@ -64,7 +67,11 @@
                 axios.post('/cart', formData)
                     .then(function (response) {
                         if (response.data.hasOwnProperty('msg')) {
-                            self.submitForm = response.data.msg
+                            axios
+                                .get('/removeAllFromCart')
+                                .then(response => {
+                                    self.$router.push('/')
+                                })
                         }
                     })
                     .catch(function (error) {
@@ -88,12 +95,6 @@
                     .then(response => {
                         this.products = response.data
                     })
-            }
-        },
-
-        computed: {
-            csrf: function () {
-                return document.querySelector('meta[name="csrf-token"]').getAttribute('content')
             }
         },
 
