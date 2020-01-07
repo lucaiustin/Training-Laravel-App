@@ -31,6 +31,7 @@
         },
 
         mounted () {
+            let self = this
             axios
                 .get('/order/' + this.$route.params.id)
                 .then(response => {
@@ -43,6 +44,11 @@
                         totalPrice += parseFloat(this.products[product].price)
                     }
                     this.order['totalPrice'] = totalPrice
+                })
+                .catch(function (error) {
+                    if (error.response.status === 401) {
+                        self.$router.push('/login')
+                    }
                 })
         },
         components: {

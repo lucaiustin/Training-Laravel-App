@@ -1,11 +1,12 @@
 import VueRouter from 'vue-router'
 
-let NotInCartProducts = require('./components/NotInCartProducts.vue').default
-let CartProducts = require('./components/CartProducts.vue').default
+let NotInCartProducts = require('./components/NotInCartProductsComponent.vue').default
+let CartProducts = require('./components/CartProductsComponent.vue').default
 let ProductsComponent = require('./components/ProductsComponent.vue').default
 let ProductFormComponent = require('./components/ProductFormComponent.vue').default
 let OrdersComponent = require('./components/OrdersComponent.vue').default
 let OrderComponent = require('./components/OrderComponent.vue').default
+let LoginComponent = require('./components/LoginComponent.vue').default
 
 let routes = [
     {
@@ -20,6 +21,7 @@ let routes = [
 
     {
         path: '/products/',
+        name: 'products',
         component: ProductsComponent
     },
 
@@ -43,6 +45,12 @@ let routes = [
         path: '/order/:id',
         name: 'order',
         component: OrderComponent
+    },
+
+    {
+        path: '/login/',
+        name: 'login',
+        component: LoginComponent
     }
 ]
 

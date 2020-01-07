@@ -52,6 +52,10 @@
                     if (error.response.status === 404) {
                         console.log('Product does not exist')
                     }
+
+                    if (error.response.status === 401) {
+                        self.$router.push('login')
+                    }
                 })
         },
 
@@ -91,7 +95,6 @@
                     })
                     .catch(function (error) {
                         if (error.response.status === 422) {
-                            console.log(error.response.data.errors)
                             if (error.response.data.errors.hasOwnProperty('title')) {
                                 self.titleErrors = error.response.data.errors.title[0]
                             }

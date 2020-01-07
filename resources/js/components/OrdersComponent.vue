@@ -22,10 +22,16 @@
         },
 
         mounted () {
+            let self = this
             axios
                 .get('/orders')
                 .then(response => {
                     this.orders = response.data
+                })
+                .catch(function (error) {
+                    if (error.response.status === 401) {
+                        self.$router.push('login')
+                    }
                 })
         },
     }

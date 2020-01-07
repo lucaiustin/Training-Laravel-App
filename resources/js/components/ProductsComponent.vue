@@ -9,7 +9,7 @@
             <hr>
         </div>
         <router-link to="/product">{{ $t('message.add') }}</router-link>
-        <form id="frm-logout" action="/vue/logout" method="POST">
+        <form id="frm-logout" v-on:submit.prevent="onSubmit">
             <button type="submit">{{ $t('message.logout') }}</button>
         </form>
     </div>
@@ -27,14 +27,17 @@
         },
 
         mounted () {
+            let self = this
             axios
                 .get('/products')
                 .then(response => {
                     console.log(response.data)
                     this.products = response.data
                 }).catch(function (error) {
-                console.log(error)
-            })
+                    if (error.response.status === 401) {
+                        self.$router.push('login')
+                    }
+                })
         },
 
         methods: {
@@ -49,6 +52,20 @@
                     })
                     .catch(function (error) {
                         console.log(error)
+                    })
+            },
+
+            onSubmit: function (event) {
+                let self = this
+                let formData = new FormData()
+                formData.append('_token', self.csrf)
+
+                axios.post('/logout', formData)
+                    .then(function (response) {
+                       self.$router.push('login')
+                    })
+                    .catch(function (error) {
+                        console.log(error.response.data)
                     })
             }
         },
