@@ -5,7 +5,7 @@
                 <p> {{order.created_at}} </p>
                 <p> {{order.contact_details}} </p>
                 <p> {{order.prices_sum}} </p>
-                <a  v-bind:href="'/order/' + order.id">View Order</a>
+                <router-link :to="{ name: 'order', params: { id: order.id }}">{{ $t('message.viewOrder') }}</router-link>
                 <hr>
             </div>
         </div>
@@ -24,8 +24,8 @@
             axios
                 .get('/orders')
                 .then(response => {
-                    this.orders = response.data;
-                });
+                    this.orders = response.data
+                })
         },
     }
 </script>

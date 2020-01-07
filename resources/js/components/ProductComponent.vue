@@ -19,7 +19,7 @@
         props: ['product'],
         computed: {
             baseUrl: function () {
-                return window.location.origin;
+                return window.location.origin
             }
         }
     }

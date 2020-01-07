@@ -10,8 +10,6 @@
             <hr>
         @endforeach
 
-        <a href="/">{{__('Go to index')}}</a>
-
         <form method="POST">
             {{ csrf_field() }}
             <input type="text" name="name" placeholder="{{ __('Name') }}" value="{{ old('name') }}" required>
@@ -35,5 +33,7 @@
         @if(session()->has('msg'))
             {{ session()->get('msg') }}
         @endif
+
+            <a href="/">{{__('Go to index')}}</a>
     </div>
 @endsection

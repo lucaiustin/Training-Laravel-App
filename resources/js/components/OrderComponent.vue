@@ -21,7 +21,7 @@
 </template>
 
 <script>
-    var product = require('./ProductComponent.vue').default;
+    var product = require('./ProductComponent.vue').default
     export default {
         data: function () {
             return {
@@ -35,18 +35,18 @@
                 .get('/order/' + this.$route.params.id)
                 .then(response => {
 
-                    this.order = response.data.order;
-                    this.products = response.data.products;
+                    this.order = response.data.order
+                    this.products = response.data.products
 
-                    var totalPrice = 0;
+                    var totalPrice = 0
                     for (var product in this.products) {
-                        totalPrice += parseFloat(this.products[product].price);
+                        totalPrice += parseFloat(this.products[product].price)
                     }
-                    this.order['totalPrice'] = totalPrice;
-                });
+                    this.order['totalPrice'] = totalPrice
+                })
         },
         components: {
-            'product' : product
+            'product': product
         },
     }
 </script>

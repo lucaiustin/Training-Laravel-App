@@ -1,11 +1,11 @@
-import VueRouter from 'vue-router';
+import VueRouter from 'vue-router'
 
-let NotInCartProducts = require('./components/NotInCartProducts.vue').default;
-let CartProducts = require('./components/CartProducts.vue').default;
-let ProductsComponent = require('./components/ProductsComponent.vue').default;
-let ProductFormComponent = require('./components/ProductFormComponent.vue').default;
-let OrdersComponent = require('./components/OrdersComponent.vue').default;
-let OrderComponent = require('./components/OrderComponent.vue').default;
+let NotInCartProducts = require('./components/NotInCartProducts.vue').default
+let CartProducts = require('./components/CartProducts.vue').default
+let ProductsComponent = require('./components/ProductsComponent.vue').default
+let ProductFormComponent = require('./components/ProductFormComponent.vue').default
+let OrdersComponent = require('./components/OrdersComponent.vue').default
+let OrderComponent = require('./components/OrderComponent.vue').default
 
 let routes = [
     {
@@ -25,6 +25,7 @@ let routes = [
 
     {
         path: '/product/:id',
+        name: 'product',
         component: ProductFormComponent
     },
 
@@ -40,11 +41,12 @@ let routes = [
 
     {
         path: '/order/:id',
+        name: 'order',
         component: OrderComponent
     }
-];
+]
 
 export default new VueRouter({
     routes,
     linkActiveClass: 'is-active'
-});
+})
