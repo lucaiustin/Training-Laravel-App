@@ -21,6 +21,15 @@ Route::get('/vue', function () {
     return view('vue.index');
 });
 
+Route::get('/react', function () {
+    return view('react.shop.index');
+});
+
+Route::get('/react/cart', function () {
+    return view('react.shop.cart');
+});
+
+
 Route::get('/cart/{id}', 'ShopController@removeFromCart');
 Route::get('/removeAllFromCart', 'ShopController@removeAllFromCart');
 Route::get('/cart', 'ShopController@cart');

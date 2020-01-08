@@ -1,53 +1,16 @@
 /**
  * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
+ * includes React and other helpers. It's a great starting point while
+ * building robust, powerful web applications using React + Laravel.
  */
 
-require('./bootstrap')
+require('./bootstrap');
 
-window.Vue = require('vue')
-import VueRouter from 'vue-router'
-import VueI18n from 'vue-i18n'
-import router from './router'
+/**
+ * Next, we will create a fresh React component instance and attach it to
+ * the page. Then, you may begin adding components to this application
+ * or customize the JavaScript scaffolding to fit your unique needs.
+ */
 
-Vue.use(VueI18n)
-Vue.use(VueRouter)
-
-const messages = {
-    en: {
-        message: {
-            add: 'Add',
-            cart: 'Go to Cart',
-            remove: 'Remove',
-            checkout: 'Checkout',
-            index: 'Go to index',
-            name: 'Name',
-            contactDetails: 'Contact Details',
-            comments: 'Comments',
-            edit: "Edit",
-            delete: "Delete Product",
-            logout: "Logout",
-            title: "Title",
-            description: "Description",
-            price: "Price",
-            save: "Save",
-            products: "Products",
-            viewOrder: "View Order",
-            username: 'Username',
-            password: 'Password',
-            login: 'Login'
-        }
-    }
-}
-const i18n = new VueI18n({
-    locale: 'en', // set locale
-    messages, // set locale messages
-})
-
-const app = new Vue({
-    el: '#app',
-    i18n,
-    router,
-})
-
+require('./react-components/App');
+require('./react-components/Cart');
