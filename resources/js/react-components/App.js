@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from "react-router-dom";
 import Index from './Index';
 
 export default class App extends Component {

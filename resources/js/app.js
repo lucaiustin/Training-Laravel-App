@@ -14,3 +14,8 @@ require('./bootstrap');
 
 require('./react-components/App');
 require('./react-components/Cart');
+require('./react-components/Login');
+require('./react-components/Products');
+require('./react-components/ProductForm');
+require('./react-components/Orders');
+require('./react-components/Order');

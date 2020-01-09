@@ -46,7 +46,7 @@ export default class Cart extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault()
-        let self = this;
+        let self = this
         let formData = new FormData()
         formData.append('name', this.state.name)
         formData.append('contact_details', this.state.contactDetails)
@@ -57,11 +57,12 @@ export default class Cart extends Component {
                 if (response.data.hasOwnProperty('msg')) {
                     console.log(response.data.msg)
                     self.setState({ submitMessage: response.data.msg })
-                    // axios
-                    //     .get('/removeAllFromCart')
-                    //     .then(response => {
-                    //         self.$router.push('/')
-                    //     })
+                    axios
+                        .get('/removeAllFromCart')
+                        .then(response => {
+                            self.props.history.push('/')
+                        })
+
                 }
             })
             .catch(function (error) {

@@ -29,6 +29,29 @@ Route::get('/react/cart', function () {
     return view('react.shop.cart');
 });
 
+Route::get('/react/login', function () {
+    return view('react.auth.index');
+});
+
+Route::get('/react/products', function () {
+    return view('react.products.index');
+});
+
+Route::get('/react/product', function () {
+    return view('react.products.form');
+});
+
+Route::get('/react/product/{id}', function () {
+    return view('react.products.form');
+});
+
+Route::get('/react/orders', function () {
+    return view('react.orders.index');
+});
+
+Route::get('/react/order/{id}', function () {
+    return view('react.orders.show');
+});
 
 Route::get('/cart/{id}', 'ShopController@removeFromCart');
 Route::get('/removeAllFromCart', 'ShopController@removeAllFromCart');
