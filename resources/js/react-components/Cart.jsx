@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom'
 import axios from 'axios'
 import Product from './Product'
 import { Link } from 'react-router-dom'
+import { withTranslation, Trans } from 'react-i18next'
 
-export default class Cart extends Component {
+class Cart extends Component {
     state = {
         products: [],
         name: '',
@@ -88,7 +89,7 @@ export default class Cart extends Component {
             return (
                 <div key={product.id}>
                     <Product product={product}/>
-                    <a onClick={(e) => this.removeProduct(e, product.id)} href={'/cart/' + product.id}>Remove</a>
+                    <a onClick={(e) => this.removeProduct(e, product.id)} href={'/cart/' + product.id}>{this.props.t('remove')}</a>
                     <hr/>
                 </div>
             )
@@ -102,21 +103,23 @@ export default class Cart extends Component {
                            onChange={this.handleInputChange} required/>
                     <span className="validation-name-error">{this.state.nameError}</span>
                     <br/>
-                    <input type="text" name="contactDetails" placeholder="Contact Details"
+                    <input type="text" name="contactDetails" placeholder={this.props.t('contactDetails')}
                            value={this.state.contactDetails} onChange={this.handleInputChange} required/>
                     <span className="validation-contact-details-error">{this.state.contactDetailsError}</span>
                     <br/>
-                    <textarea rows="10" cols="30" name="comments" placeholder="Comments" value={this.state.comments}
+                    <textarea rows="10" cols="30" name="comments" placeholder={this.props.t('comments')} value={this.state.comments}
                               onChange={this.handleInputChange}/>
                     <span className="validation-comments-error">{this.state.commentsError}</span>
                     <br/>
-                    <button type="submit">Checkout</button>
+                    <button type="submit">{this.props.t('checkout')}</button>
                 </form>
                 <div className="submit-message">{this.state.submitMessage}</div>
 
-                <Link to={'/'}>Go to Index</Link>
+                <Link to={'/'}>{this.props.t('goToIndex')}</Link>
             </div>
         )
     }
 }
+
+export default withTranslation('common')(Cart)
 

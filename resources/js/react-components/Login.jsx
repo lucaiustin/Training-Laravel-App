@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import axios from 'axios'
 import { Redirect } from 'react-router';
+import { withTranslation, Trans } from 'react-i18next'
 
-export default class Login extends Component {
+class Login extends Component {
     state = {
         username: [],
         password: '',
@@ -54,17 +55,18 @@ export default class Login extends Component {
         return (
             <div className="container">
                 <form onSubmit={this.handleSubmit}>
-                    <input type="text" name="username" placeholder="Username" value={this.state.username}
+                    <input type="text" name="username" placeholder={this.props.t('username')} value={this.state.username}
                            onChange={this.handleInputChange} required/>
                     <span className="validation-username-error">{this.state.usernameError}</span>
                     <br/>
-                    <input type="password" name="password" placeholder="Password"
+                    <input type="password" name="password" placeholder={this.props.t('password')}
                            value={this.state.password} onChange={this.handleInputChange} required/>
                     <span className="validation-password-error">{this.state.passwordError}</span>
                     <br/>
-                    <button type="submit">Login</button>
+                    <button type="submit">{this.props.t('login')}</button>
                 </form>
             </div>
         )
     }
 }
+export default withTranslation('common')(Login)

@@ -3,11 +3,14 @@ import ReactDOM from 'react-dom'
 import axios from 'axios'
 import Product from './Product'
 import Cart from './Cart'
+import { withTranslation, Trans } from 'react-i18next'
+import { Link, Redirect } from 'react-router-dom'
 
-export default class Order extends Component {
+class Order extends Component {
     state = {
         order: [],
-        products: []
+        products: [],
+        isLoggedIn: true
     }
 
     componentDidMount () {
@@ -30,9 +33,18 @@ export default class Order extends Component {
                 })
                 console.log(orderCopy)
             })
+            .catch(function (error) {
+                if (error.response.status === 401) {
+                    self.setState({ isLoggedIn: false })
+                }
+            })
     }
 
     render () {
+        if (this.state.isLoggedIn == false) {
+            return <Redirect to={{ pathname: '/login' }}/>
+        }
+
         const { order } = this.state
         const { products } = this.state
 
@@ -58,9 +70,10 @@ export default class Order extends Component {
                     {order.created_at}
                     <br/><br/>
                     {result}
-                    <a href="react/product">Add</a>
+                    <Link to={'../orders/'}>{this.props.t('goToOrders')}</Link>
                 </div>
             </div>
         )
     }
-                }
+}
+export default withTranslation('common')(Order)

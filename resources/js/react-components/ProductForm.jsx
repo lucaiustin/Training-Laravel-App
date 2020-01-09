@@ -7,8 +7,9 @@ import {
     Link,
     Redirect
 } from 'react-router-dom'
+import { withTranslation, Trans } from 'react-i18next'
 
-export default class ProductForm extends Component {
+class ProductForm extends Component {
     state = {
         title: '',
         description: '',
@@ -18,11 +19,12 @@ export default class ProductForm extends Component {
         descriptionError: '',
         priceError: '',
         imageError: '',
-        redirectToProducts: false
+        redirectToProducts: false,
+        isLoggedIn: true
     }
 
     componentDidMount () {
-        let self = this;
+        let self = this
         if (this.props.match.params.id) {
             axios
                 .get('/product/' + self.props.match.params.id)
@@ -33,6 +35,12 @@ export default class ProductForm extends Component {
                         price: response.data.price
                     })
                 })
+                .catch(function (error) {
+                    if (error.response.status === 401) {
+                        self.setState({ isLoggedIn: false })
+                    }
+                })
+
         }
     }
 
@@ -99,30 +107,39 @@ export default class ProductForm extends Component {
 
     render () {
         if (this.state.redirectToProducts) {
-            return <Redirect to = {{ pathname: "/products" }} />;
+            return <Redirect to={{ pathname: '/products' }}/>
+        }
+
+        if (this.state.isLoggedIn == false) {
+            return <Redirect to={{ pathname: '/login' }}/>
         }
 
         return (
             <div className="container">
                 <form method="POST" onSubmit={this.handleSubmit}>
-                    <input type="text" name="title" placeholder="Title" value={this.state.title} onChange={this.handleInputChange} required/>
+                    <input type="text" name="title" placeholder={this.props.t('title')} value={this.state.title}
+                           onChange={this.handleInputChange} required/>
                     <span className="validation-title-error">{this.state.titleError}</span>
                     <br/>
-                    <input type="text" name="description" placeholder="Description" value={this.state.description} onChange={this.handleInputChange} required/>
+                    <input type="text" name="description" placeholder={this.props.t('description')}
+                           value={this.state.description} onChange={this.handleInputChange} required/>
                     <span className="validation-description-error">{this.state.descriptionError}</span>
                     <br/>
-                    <input type="text" name="price" placeholder="Price" value={this.state.price} onChange={this.handleInputChange} required/>
+                    <input type="text" name="price" placeholder={this.props.t('price')} value={this.state.price}
+                           onChange={this.handleInputChange} required/>
                     <span className="validation-price-error">{this.state.priceError}</span>
                     <br/>
-                    <input type="file" name="image" onChange={this.fileChangedHandler} />
+                    <input type="file" name="image" onChange={this.fileChangedHandler}/>
                     <span className="validation-image-error">{this.state.imageError}</span>
                     <br/>
-                    <button type="submit">Save</button>
+                    <button type="submit">{this.props.t('save')}</button>
                 </form>
                 <br/>
 
-                <Link to={'/products'}>Products</Link>
+                <Link to={'/products'}>{this.props.t('products')}</Link>
             </div>
         )
     }
 }
+
+export default withTranslation('common')(ProductForm)

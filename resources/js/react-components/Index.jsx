@@ -1,15 +1,16 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import axios from 'axios';
+import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
+import axios from 'axios'
 import Product from './Product'
 import { Link } from 'react-router-dom'
+import { withTranslation, Trans } from 'react-i18next'
 
-export default class Index extends Component {
+class Index extends Component {
     state = {
         products: [],
-    };
+    }
 
-    componentDidMount() {
+    componentDidMount () {
         axios
             .get('/')
             .then(response => {
@@ -20,22 +21,22 @@ export default class Index extends Component {
     }
 
     addProduct = (event, id) => {
-        event.preventDefault();
+        event.preventDefault()
         axios
             .get('/' + id)
             .then(response => {
-                this.setState({ products: response.data})
+                this.setState({ products: response.data })
             })
     }
 
-    render() {
+    render () {
         const { products } = this.state
 
         const result = products.map((product) => {
             return (
                 <div key={product.id}>
                     <Product product={product}/>
-                    <a  onClick={(e) => this.addProduct(e, product.id)} href={'/' + product.id}>Add</a>
+                    <a onClick={(e) => this.addProduct(e, product.id)} href={'/' + product.id}>{this.props.t('add')}</a>
                     <hr/>
                 </div>
             )
@@ -45,8 +46,10 @@ export default class Index extends Component {
             <div className="container">
                 {result}
 
-                <Link to={'/cart'}>Go to cart</Link>
+                <Link to={'/cart'}>{this.props.t('goToCart')}</Link>
             </div>
-        );
+        )
     }
 }
+
+export default withTranslation('common')(Index)

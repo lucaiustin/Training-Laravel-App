@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { withTranslation, Trans } from 'react-i18next'
+
 export default class Product extends Component {
     state = {
         url: window.location.hostname

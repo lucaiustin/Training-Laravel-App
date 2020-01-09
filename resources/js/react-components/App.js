@@ -7,6 +7,10 @@ import {
     HashRouter,
     Link
 } from 'react-router-dom'
+
+import {I18nextProvider} from 'react-i18next';
+import i18next from 'i18next';
+
 import Index from './Index'
 import Cart from './Cart'
 import Login from './Login'
@@ -34,9 +38,43 @@ function App () {
     )
 }
 
+i18next.init({
+    interpolation: { escapeValue: false },  // React already does escaping
+    lng: 'en',                              // language to use
+    resources: {
+        en: {
+            common: {
+                'add': 'Add',
+                'goToCart': 'Go to cart',
+                'remove': 'Remove',
+                'goToIndex': 'Go to Index',
+                'name': 'Name',
+                'contactDetails': 'Contact Details',
+                'comments': 'Comments',
+                'checkout': 'Checkout',
+                'edit': 'Edit',
+                'deleteProduct': 'Delete Product',
+                'logout': 'Logout',
+                'title': 'Title',
+                'description': 'Description',
+                'price': 'Price',
+                'save': 'Save',
+                'products': 'Products',
+                'username': 'Username',
+                'password': 'Password',
+                'login': 'Login',
+                'viewOrder': 'View Order',
+                'goToOrders': 'Go to Orders'
+            }
+        },
+    },
+});
+
 ReactDOM.render(
-    <HashRouter>
-        <App/>
-    </HashRouter>,
+    <I18nextProvider i18n={i18next}>
+        <HashRouter>
+            <App/>
+        </HashRouter>,
+    </I18nextProvider>,
     document.getElementById('root')
 )

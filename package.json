@@ -29,6 +29,8 @@
     },
     "dependencies": {
         "@babel/plugin-proposal-class-properties": "^7.7.4",
+        "i18next": "^19.0.3",
+        "react-i18next": "^11.2.7",
         "react-router-dom": "^5.1.2",
         "vue-i18n": "^8.15.3"
     }

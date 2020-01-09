@@ -4,8 +4,9 @@ import axios from 'axios'
 import Product from './Product'
 import Cart from './Cart'
 import { Redirect, Link } from 'react-router-dom'
+import { withTranslation, Trans } from 'react-i18next'
 
-export default class Products extends Component {
+class Products extends Component {
     state = {
         products: [],
         isLoggedIn: true
@@ -72,9 +73,9 @@ export default class Products extends Component {
             return (
                 <div key={product.id}>
                     <Product product={product}/>
-                    <Link to={'/product/' + product.id}>Edit</Link>
+                    <Link to={'/product/' + product.id}>{this.props.t('edit')}</Link>
                     <form method="POST" onSubmit={(e) => this.handleDeleteProduct(e, product.id)}>
-                        <button type="submit">Delete Product</button>
+                        <button type="submit">{this.props.t('deleteProduct')}</button>
                     </form>
                     <hr/>
                 </div>
@@ -85,12 +86,14 @@ export default class Products extends Component {
             <div className="container">
                 {result}
 
-                <Link to={'/product'}>Add</Link>
+                <Link to={'/product'}>{this.props.t('add')}</Link>
 
                 <form method="POST" onSubmit={this.handleDeleteLogout}>
-                    <button type="submit">Logout</button>
+                    <button type="submit">{this.props.t('logout')}</button>
                 </form>
             </div>
         )
     }
 }
+
+export default withTranslation('common')(Products)
