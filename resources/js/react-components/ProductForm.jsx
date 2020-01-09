@@ -20,15 +20,18 @@ export default class ProductForm extends Component {
     }
 
     componentDidMount () {
-        console.log(this.props.match.params.id)
-        //axios
-            // .get('/product/')
-            // .then(response => {
-            //     console.log(response.data)
-            //     this.setState({
-            //         products: response.data
-            //     })
-            // })
+        let self = this;
+        if (this.props.match.params.id) {
+            axios
+                .get('/product/' + self.props.match.params.id)
+                .then(response => {
+                    self.setState({
+                        title: response.data.title,
+                        description: response.data.description,
+                        price: response.data.price
+                    })
+                })
+        }
     }
 
     handleInputChange = (event) => {
@@ -59,13 +62,20 @@ export default class ProductForm extends Component {
         formData.append('price', this.state.price)
         formData.append('image', this.state.image)
 
-        axios.post('/product', formData,{
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        })
+        let postUrl = '/product/'
+        if (this.props.match.params.id) {
+            formData.append('_method', 'PATCH')
+            postUrl = '/product/' + this.props.match.params.id
+        }
+
+        axios.post(postUrl, formData,
+            {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
             .then(function (response) {
-                console.log(response)
+                console.log(response.data)
             })
             .catch(function (error) {
                 if (error.response.status === 422) {
@@ -108,8 +118,4 @@ export default class ProductForm extends Component {
             </div>
         )
     }
-}
-
-if (document.getElementById('product')) {
-    ReactDOM.render(<ProductForm/>, document.getElementById('product'))
 }

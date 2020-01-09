@@ -118,6 +118,3 @@ export default class Cart extends Component {
     }
 }
 
-if (document.getElementById('cart')) {
-    ReactDOM.render(<Cart/>, document.getElementById('cart'))
-}

@@ -62,7 +62,3 @@ export default class Login extends Component {
         )
     }
 }
-
-if (document.getElementById('login')) {
-    ReactDOM.render(<Login/>, document.getElementById('login'))
-}

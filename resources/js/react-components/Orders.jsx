@@ -41,8 +41,3 @@ export default class Orders extends Component {
         )
     }
 }
-
-if (document.getElementById('orders')) {
-    ReactDOM.render(<Orders/>, document.getElementById('orders'))
-}
-

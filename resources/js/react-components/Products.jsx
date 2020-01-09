@@ -82,8 +82,3 @@ export default class Products extends Component {
         );
     }
 }
-
-if (document.getElementById('products')) {
-    ReactDOM.render(<Products/>, document.getElementById('products'))
-}
-
