@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import axios from 'axios'
 import Product from './Product'
+import { Link } from 'react-router-dom'
 
 export default class Cart extends Component {
     state = {
@@ -112,7 +113,8 @@ export default class Cart extends Component {
                     <button type="submit">Checkout</button>
                 </form>
                 <div className="submit-message">{this.state.submitMessage}</div>
-                <a href={'/react/'}>Got to Index</a>
+
+                <Link to={'/'}>Go to Index</Link>
             </div>
         )
     }

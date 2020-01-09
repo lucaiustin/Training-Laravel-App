@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import axios from 'axios'
+import { Redirect } from 'react-router';
 
 export default class Login extends Component {
     state = {
         username: [],
         password: '',
         usernameError: '',
-        passwordError: ''
+        passwordError: '',
+        isLoggedIn: false
     }
 
     handleInputChange = (event) => {
@@ -31,7 +33,7 @@ export default class Login extends Component {
 
         axios.post('/login', formData)
             .then(function (response) {
-                console.log('Redirect!!!')
+                self.setState({ isLoggedIn: true })
             })
             .catch(function (error) {
 
@@ -45,6 +47,10 @@ export default class Login extends Component {
     }
 
     render () {
+        if (this.state.isLoggedIn) {
+            return <Redirect to = {{ pathname: "/products" }} />;
+        }
+
         return (
             <div className="container">
                 <form onSubmit={this.handleSubmit}>

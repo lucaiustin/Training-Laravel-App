@@ -40,7 +40,6 @@
             }
         },
 
-        mixins: [mixin],
 
         mounted () {
             let self = this

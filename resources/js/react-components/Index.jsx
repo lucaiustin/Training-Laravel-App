@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import Product from './Product'
+import { Link } from 'react-router-dom'
 
 export default class Index extends Component {
     state = {
@@ -43,7 +44,8 @@ export default class Index extends Component {
         return (
             <div className="container">
                 {result}
-                <a href={'/react/cart'}>Got to Cart</a>
+
+                <Link to={'/cart'}>Go to cart</Link>
             </div>
         );
     }

@@ -1,30 +1,37 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import axios from 'axios';
+import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
+import axios from 'axios'
 import Product from './Product'
 import Cart from './Cart'
+import { Redirect, Link } from 'react-router-dom'
 
 export default class Products extends Component {
     state = {
         products: [],
-    };
+        isLoggedIn: true
+    }
 
-    componentDidMount() {
+    componentDidMount () {
+        let self = this
         axios
             .get('/products')
             .then(response => {
                 this.setState({
                     products: response.data
                 })
-            })
+            }).catch(function (error) {
+            if (error.response.status === 401) {
+                self.setState({ isLoggedIn: false })
+            }
+        })
     }
 
     addProduct = (event, id) => {
-        event.preventDefault();
+        event.preventDefault()
         axios
             .get('/' + id)
             .then(response => {
-                this.setState({ products: response.data})
+                this.setState({ products: response.data })
             })
     }
 
@@ -38,7 +45,7 @@ export default class Products extends Component {
                 self.setState({ products: response.data })
             })
             .catch(function (error) {
-                console.log(error);
+                console.log(error)
             })
     }
 
@@ -47,21 +54,25 @@ export default class Products extends Component {
         let self = this
         axios.post('/logout')
             .then(function (response) {
-                console.log('Redirect')
+                self.setState({ isLoggedIn: false })
             })
             .catch(function (error) {
-                console.log(error);
+                console.log(error)
             })
     }
 
-    render() {
+    render () {
+        if (this.state.isLoggedIn == false) {
+            return <Redirect to={{ pathname: '/login' }}/>
+        }
+
         const { products } = this.state
 
         const result = products.map((product) => {
             return (
                 <div key={product.id}>
                     <Product product={product}/>
-                    <a  href={'/react/product/' + product.id}>Edit</a>
+                    <Link to={'/product/' + product.id}>Edit</Link>
                     <form method="POST" onSubmit={(e) => this.handleDeleteProduct(e, product.id)}>
                         <button type="submit">Delete Product</button>
                     </form>
@@ -73,12 +84,13 @@ export default class Products extends Component {
         return (
             <div className="container">
                 {result}
-                <a href="react/product">Add</a>
+
+                <Link to={'/product'}>Add</Link>
 
                 <form method="POST" onSubmit={this.handleDeleteLogout}>
                     <button type="submit">Logout</button>
                 </form>
             </div>
-        );
+        )
     }
 }

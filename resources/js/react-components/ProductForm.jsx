@@ -4,7 +4,8 @@ import axios from 'axios'
 import {
     BrowserRouter as Router,
     Route,
-    Link
+    Link,
+    Redirect
 } from 'react-router-dom'
 
 export default class ProductForm extends Component {
@@ -16,7 +17,8 @@ export default class ProductForm extends Component {
         titleError: '',
         descriptionError: '',
         priceError: '',
-        imageError: ''
+        imageError: '',
+        redirectToProducts: false
     }
 
     componentDidMount () {
@@ -75,7 +77,7 @@ export default class ProductForm extends Component {
                 }
             })
             .then(function (response) {
-                console.log(response.data)
+                self.setState({ redirectToProducts: true })
             })
             .catch(function (error) {
                 if (error.response.status === 422) {
@@ -96,6 +98,10 @@ export default class ProductForm extends Component {
     }
 
     render () {
+        if (this.state.redirectToProducts) {
+            return <Redirect to = {{ pathname: "/products" }} />;
+        }
+
         return (
             <div className="container">
                 <form method="POST" onSubmit={this.handleSubmit}>
@@ -114,7 +120,8 @@ export default class ProductForm extends Component {
                     <button type="submit">Save</button>
                 </form>
                 <br/>
-                <a href="/react/products">Products</a>
+
+                <Link to={'/products'}>Products</Link>
             </div>
         )
     }
