@@ -53,4 +53,5 @@ class Orders extends Component {
         )
     }
 }
+
 export default withTranslation('common')(Orders)

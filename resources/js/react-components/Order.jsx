@@ -31,7 +31,6 @@ class Order extends Component {
                 self.setState({
                     order: orderCopy,
                 })
-                console.log(orderCopy)
             })
             .catch(function (error) {
                 if (error.response.status === 401) {

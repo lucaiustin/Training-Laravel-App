@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
 import axios from 'axios'
 import { Redirect } from 'react-router';
 import { withTranslation, Trans } from 'react-i18next'

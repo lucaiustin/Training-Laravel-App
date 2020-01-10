@@ -1,11 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {
-    BrowserRouter as Router,
     Switch,
     Route,
-    HashRouter,
-    Link
+    HashRouter
 } from 'react-router-dom'
 
 import {I18nextProvider} from 'react-i18next';

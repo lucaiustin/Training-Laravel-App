@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
 import axios from 'axios'
 import Product from './Product'
 import { Link } from 'react-router-dom'
@@ -21,7 +20,6 @@ class Cart extends Component {
         axios
             .get('/cart')
             .then(response => {
-                console.log(response.data)
                 this.setState({
                     products: response.data
                 })
@@ -57,10 +55,8 @@ class Cart extends Component {
         axios.post('/cart', formData)
             .then(function (response) {
                 if (response.data.hasOwnProperty('msg')) {
-                    console.log(response.data.msg)
                     self.setState({ submitMessage: response.data.msg })
-                    axios
-                        .get('/removeAllFromCart')
+                    axios.get('/removeAllFromCart')
                         .then(response => {
                             self.props.history.push('/')
                         })
@@ -89,7 +85,8 @@ class Cart extends Component {
             return (
                 <div key={product.id}>
                     <Product product={product}/>
-                    <a onClick={(e) => this.removeProduct(e, product.id)} href={'/cart/' + product.id}>{this.props.t('remove')}</a>
+                    <a onClick={(e) => this.removeProduct(e, product.id)}
+                       href={'/cart/' + product.id}>{this.props.t('remove')}</a>
                     <hr/>
                 </div>
             )
@@ -107,7 +104,8 @@ class Cart extends Component {
                            value={this.state.contactDetails} onChange={this.handleInputChange} required/>
                     <span className="validation-contact-details-error">{this.state.contactDetailsError}</span>
                     <br/>
-                    <textarea rows="10" cols="30" name="comments" placeholder={this.props.t('comments')} value={this.state.comments}
+                    <textarea rows="10" cols="30" name="comments" placeholder={this.props.t('comments')}
+                              value={this.state.comments}
                               onChange={this.handleInputChange}/>
                     <span className="validation-comments-error">{this.state.commentsError}</span>
                     <br/>
